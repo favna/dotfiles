@@ -66,3 +66,6 @@ RUN sudo -u node npm install -g \
 	rollup \
 	standard-version \
 	ts-node
+
+# Switch to non-root user
+USER node
