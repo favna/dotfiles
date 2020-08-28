@@ -5,7 +5,7 @@ RUN echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
 	&& ls -al /etc/apt \ 
 	&& echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
 	&&  cat /etc/apt/sources.list \
-	&& && echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<"
+	&& echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<"
 
 RUN sed 's/buster main/busted main contrib non-free/g' -i /etc/apt/sources.list
 
