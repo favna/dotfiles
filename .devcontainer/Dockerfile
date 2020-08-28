@@ -42,7 +42,7 @@ ENV ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 # [Optional] Uncomment if you want to install more global node packages
 RUN sudo -u node npm install -g \
-	all-contributors \
+	all-contributors-cli \
 	commitizen \
 	eslint \
 	git-open \
