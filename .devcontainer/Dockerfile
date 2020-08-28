@@ -69,7 +69,6 @@ RUN sudo -u node npm install -g \
 USER node
 
 # Setup Oh-my-zsh, plugins, fonts and config
-RUN git clone https://github.com/robbyrussell/oh-my-zsh.git /home/node/.oh-my-zsh
 RUN git clone https://github.com/favware/zsh-git-enhanced.git /home/node/.oh-my-zsh/custom/plugins/zsh-git-enhanced --depth 1
 RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/node/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting --depth 1
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions /home/node/.oh-my-zsh/custom/plugins/zsh-autosuggestions --depth 1
