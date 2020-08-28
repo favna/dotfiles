@@ -84,21 +84,21 @@
 
 	// VSCode Extension by their IDs
 	"extensions": [
-		"dbaeumer.vscode-eslint",
-		"coenraads.bracket-pair-colorizer-2",
+		// "dbaeumer.vscode-eslint",
+		// "coenraads.bracket-pair-colorizer-2",
 		// "bierner.github-markdown-preview",
 		// "eamodio.gitlens",
 		// "ldez.ignore-files",
 		// "oderwat.indent-rainbow",
-		"jtladeiras.vscode-inline-sql",
-		"equinusocio.vsc-material-theme-icons",
-		"eg2.vscode-npm-script",
+		// "jtladeiras.vscode-inline-sql",
+		// "equinusocio.vsc-material-theme-icons",
+		// "eg2.vscode-npm-script",
 		// "christian-kohler.npm-intellisense",
-		"christian-kohler.path-intellisense",
-		"esbenp.prettier-vscode",
+		// "christian-kohler.path-intellisense",
+		// "esbenp.prettier-vscode",
 		// "tabnine.tabnine-vscode",
 		// "redhat.vscode-yaml",
-		"akamud.vscode-theme-onedark"
+		// "akamud.vscode-theme-onedark"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
