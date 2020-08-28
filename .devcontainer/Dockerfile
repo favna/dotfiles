@@ -48,8 +48,6 @@ RUN curl -sL https://github.com/cli/cli/releases/download/v0.11.1/gh_0.11.1_linu
 ARG USERNAME=node
 RUN sudo -u ${USERNAME} npm install -g typescript
 
-ENV ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
-
 # [Optional] Uncomment if you want to install more global node packages
 RUN sudo -u node npm install -g \
 	all-contributors-cli \
