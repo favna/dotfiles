@@ -19,20 +19,15 @@ ZSH_DISABLE_COMPFIX="true"
 
 # Loading plugins
 plugins=(
-  zsh-git-enhanced
-  node
-  npm
+  # zsh-git-enhanced
   ssh-agent
-  sudo
-  thefuck
-  yarn
-  zsh-autosuggestions
-  zsh-syntax-highlighting
+  # zsh-autosuggestions
+  # zsh-syntax-highlighting
 )
 
 # Sourcing dem files
 source $HOME/.profile
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

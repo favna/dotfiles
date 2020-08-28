@@ -1,15 +1,28 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
+# Install apt-transport-https
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+	&& apt-get -y install \
+	apt-transport-https
+
+# Import the Microsoft public repository GPG keys
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+
+# Register the Microsoft Product feed
+RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list
+
 # Add contrib and non-free repos to sources
 RUN sed 's/stretch main/stretch main contrib non-free/g' -i /etc/apt/sources.list
 
 # Install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	&& apt-get -y install \
+	apt-transport-https \
 	build-essential \
 	curl \
 	fonts-firacode \
+	gnupg \
 	htop \
 	# region: node-canvas deps
 	libcairo2-dev \
@@ -20,6 +33,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	# end-region
 	nano \
 	neofetch \
+	powershell \
 	tree \ 
 	vim \
 	wget \
