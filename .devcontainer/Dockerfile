@@ -22,12 +22,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	wget \
 	zsh
 
-# Download latest GitHub CLI version and put it in /usr/local/bin
-RUN curl -sL \
-	$(curl -sL \
-	-H "Authorization: bearer ${GITHUB_TOKEN}" \
-	-X POST \
-	--data '{"query":"query { repository(owner: \"cli\", name: \"cli\") { releases(last: 1) { nodes { releaseAssets(first: 20) { nodes { downloadUrl name }}}}}}"}' "https://api.github.com/graphql" | jq -cr '.data.repository.releases.nodes[0].releaseAssets.nodes[]? | select(.name | contains("linux_amd64.tar.gz")).downloadUrl') | tar -xz --wildcards "*gh" && mv gh*linux_amd64/bin/gh . && rm -r gh_*linux_amd64 \
+# Download GitHub CLI v0.11.1 and put it in /usr/local/bin
+RUN curl -sL https://github.com/cli/cli/releases/download/v0.11.1/gh_0.11.1_linux_amd64.tar.gz | tar -xz --wildcards "*gh" && mv gh*linux_amd64/bin/gh . && rm -r gh_*linux_amd64 \
 	&& mv ./gh /usr/local/bin \
 	&& chmod +x /usr/local/bin/gh
 
