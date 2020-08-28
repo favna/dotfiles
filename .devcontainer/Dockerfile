@@ -1,11 +1,6 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
-# Install apt-transport-https
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-	&& apt-get -y install \
-	apt-transport-https
-
 # Import the Microsoft public repository GPG keys
 RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 
