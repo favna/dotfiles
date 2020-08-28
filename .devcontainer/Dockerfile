@@ -1,7 +1,7 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
-RUN && echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
+RUN echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
 	&& ls -al /etc/apt \ 
 	&& echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
 	&&  cat /etc/apt/sources.list \
