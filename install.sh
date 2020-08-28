@@ -7,12 +7,13 @@ cat ./.profile > $HOME/.profile
 cat ./.zshrc > $HOME/.zshrc
 
 # Download oh-my-zsh
-# git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh
+# git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-# Download oh-my-zsh plugins
+# Download oh-my-zsh plugins and theme
 git clone https://github.com/favware/zsh-git-enhanced.git ~/.oh-my-zsh/custom/plugins/zsh-git-enhanced --depth 1
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting --depth 1
 git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions --depth 1
+git clone https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k --depth=1
 
 # Install Meslo NGF font
 mkdir $HOME/.fonts
