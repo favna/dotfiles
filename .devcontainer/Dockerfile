@@ -92,4 +92,5 @@ RUN curl -sLo /home/node/.fonts/MesloLGS\ NF\ Bold.ttf https://github.com/romkat
 RUN curl -sLo /home/node/.fonts/MesloLGS\ NF\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 RUN curl -sLo /home/node/.fonts/MesloLGS\ NF\ Bold\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 # Modify syntax line highlighter path
-RUN echo ": ${ZSH_HIGHLIGHT_STYLES[path]:=fg=cyan}" >> /home/node/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/highlighters/line/line-highlighter.zsh
+RUN echo $' \n\
+: ${ZSH_HIGHLIGHT_STYLES[path]:=fg=cyan}' >> /home/node/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/highlighters/line/line-highlighter.zsh
