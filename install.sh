@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # Write all files to ~/
-cat ./.bashrc > ~/.bashrc
-cat ./.p10k.zsh > ~/.p10k.zsh
-cat ./.profile > ~/.profile
-cat ./.zshrc > ~/.zshrc
+# cat ./.bashrc > ~/.bashrc
+# cat ./.p10k.zsh > ~/.p10k.zsh
+# cat ./.profile > ~/.profile
+# cat ./.zshrc > ~/.zshrc
 
 # Download oh-my-zsh
 # git clone https://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
