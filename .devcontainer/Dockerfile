@@ -37,8 +37,8 @@ RUN sudo -u ${USERNAME} npm install -g typescript
 ENV ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 # Install Node 12 as additional version of node using nvm
-ARG EXTRA_NODE_VERSION=12
-RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION} && nvm alias default 14 && nvm use 14"
+# ARG EXTRA_NODE_VERSION=12
+# RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION} && nvm alias default 14 && nvm use 14"
 
 # [Optional] Uncomment if you want to install more global node packages
 RUN sudo -u node npm install -g \
@@ -56,3 +56,9 @@ RUN sudo -u node npm install -g \
 	rollup \
 	standard-version \
 	ts-node
+
+# Install oh-my-zsh
+RUN sudo -u node "git clone https://github.com/robbyrussell/oh-my-zsh.git $HOME/.oh-my-zsh && git clone https://github.com/favware/zsh-git-enhanced.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-git-enhanced --depth 1 && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting --depth 1 && git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions --depth 1"
+
+# Install Meslo NGF Font
+RUN sudo -u node "mkdir $HOME/.fonts && curl -sLo $HOME/.fonts/MesloLGS\ NF\ Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf && curl -sLo $HOME/.fonts/MesloLGS\ NF\ Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf &&  curl -sLo $HOME/.fonts/MesloLGS\ NF\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf && curl -sLo $HOME/.fonts/MesloLGS\ NF\ Bold\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf"
