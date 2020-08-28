@@ -1,13 +1,7 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
-RUN echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
-	&& ls -al /etc/apt \ 
-	&& echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
-	&&  cat /etc/apt/sources.list \
-	&& echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<"
-
-RUN sed 's/buster main/busted main contrib non-free/g' -i /etc/apt/sources.list
+RUN sed 's/stretch main/stretch main contrib non-free/g' -i /etc/apt/sources.list
 
 # Install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -23,7 +17,6 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	librsvg2-dev \
 	nano \
 	neofetch \
-	software-properties-common \
 	tree \ 
 	vim \
 	wget \
