@@ -1,11 +1,7 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
-# Install typescript. eslint is installed by javascript image
-ARG USERNAME=node
-RUN sudo -u ${USERNAME} npm install -g typescript
-
-ENV ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
+RUN add-apt-repository universe
 
 # Install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -25,6 +21,12 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	vim \
 	wget \
 	zsh
+
+# Install typescript. eslint is installed by javascript image
+ARG USERNAME=node
+RUN sudo -u ${USERNAME} npm install -g typescript
+
+ENV ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 # Install Node 12 as additional version of node using nvm
 ARG EXTRA_NODE_VERSION=12
