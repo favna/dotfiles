@@ -1,11 +1,13 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
-# Install additional OS packages.
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-	&& apt-get -y install software-properties-common
+RUN && echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
+	&& ls -al /etc/apt \ 
+	&& echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<" \
+	&&  cat /etc/apt/sources.list \
+	&& && echo ">>>>>>>>>>========================<<<<<<<<<<<<<<<"
 
-RUN add-apt-repository universe
+RUN sed 's/buster main/busted main contrib non-free/g' -i /etc/apt/sources.list
 
 # Install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
@@ -19,12 +21,22 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	libjpeg-dev \
 	libpango1.0-dev \
 	librsvg2-dev \
-	neofetch \
 	nano \
+	neofetch \
+	software-properties-common \
 	tree \ 
 	vim \
 	wget \
 	zsh
+
+# Download latest GitHub CLI version and put it in /usr/local/bin
+RUN curl -sL \
+	$(curl -sL \
+	-H "Authorization: bearer ${GITHUB_TOKEN}" \
+	-X POST \
+	--data '{"query":"query { repository(owner: \"cli\", name: \"cli\") { releases(last: 1) { nodes { releaseAssets(first: 20) { nodes { downloadUrl name }}}}}}"}' "https://api.github.com/graphql" | jq -cr '.data.repository.releases.nodes[0].releaseAssets.nodes[]? | select(.name | contains("linux_amd64.tar.gz")).downloadUrl') | tar -xz --wildcards "*gh" && mv gh*linux_amd64/bin/gh . && rm -r gh_*linux_amd64 \
+	&& mv ./gh /usr/local/bin \
+	&& chmod +x /usr/local/bin/gh
 
 # Install typescript. eslint is installed by javascript image
 ARG USERNAME=node
