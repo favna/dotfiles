@@ -7,7 +7,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	apt-transport-https
 
 # Import the Microsoft public repository GPG keys
-RUN curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+RUN curl -sL https://packages.microsoft.com/keys/microsoft.asc | apt-key add -
 
 # Register the Microsoft Product feed
 RUN echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-debian-stretch-prod stretch main" > /etc/apt/sources.list.d/microsoft.list
