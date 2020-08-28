@@ -1,11 +1,15 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
+# Install additional OS packages.
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+	&& apt-get -y install software-properties-common
+
 RUN add-apt-repository universe
 
 # Install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-	&& apt-get -y install --no-install-recommends \
+	&& apt-get -y install \
 	build-essential \
 	curl \
 	fonts-firacode \
