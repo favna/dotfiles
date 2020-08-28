@@ -20,7 +20,6 @@ ZSH_DISABLE_COMPFIX="true"
 # Loading plugins
 plugins=(
   zsh-git-enhanced
-  ssh-agent
   zsh-autosuggestions
   zsh-syntax-highlighting
 )
