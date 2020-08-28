@@ -67,3 +67,18 @@ RUN sudo -u node npm install -g \
 
 # Switch to non-root user
 USER node
+
+# Setup Oh-my-zsh, plugins, fonts and config
+RUN git clone https://github.com/robbyrussell/oh-my-zsh.git /home/node/.oh-my-zsh
+RUN git clone https://github.com/favware/zsh-git-enhanced.git /home/node/.oh-my-zsh/custom/plugins/zsh-git-enhanced --depth 1
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /home/node/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting --depth 1
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions /home/node/.oh-my-zsh/custom/plugins/zsh-autosuggestions --depth 1
+RUN git clone https://github.com/romkatv/powerlevel10k.git /home/node/.oh-my-zsh/custom/themes/powerlevel10k --depth=1
+RUN curl -sLo /home/node/.p10k.zsh https://raw.githubusercontent.com/Favna/dotfiles/main/.p10k.zsh
+RUN curl -sLo /home/node/.profile https://raw.githubusercontent.com/Favna/dotfiles/main/.profile
+RUN curl -sLo /home/node/.zshrc https://raw.githubusercontent.com/Favna/dotfiles/main/.zshrc
+RUN mkdir /home/node/.fonts
+RUN curl -sLo /home/node/.fonts/MesloLGS\ NF\ Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+RUN curl -sLo /home/node/.fonts/MesloLGS\ NF\ Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+RUN curl -sLo /home/node/.fonts/MesloLGS\ NF\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+RUN curl -sLo /home/node/.fonts/MesloLGS\ NF\ Bold\ Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
