@@ -1,6 +1,7 @@
 ARG VARIANT=14
 FROM mcr.microsoft.com/vscode/devcontainers/typescript-node:${VARIANT}
 
+# Add contrib and non-free repos to sources
 RUN sed 's/stretch main/stretch main contrib non-free/g' -i /etc/apt/sources.list
 
 # Install additional OS packages.
@@ -10,11 +11,13 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 	curl \
 	fonts-firacode \
 	htop \
+	# region: node-canvas deps
 	libcairo2-dev \
 	libgif-dev \
 	libjpeg-dev \
 	libpango1.0-dev \
 	librsvg2-dev \
+	# end-region
 	nano \
 	neofetch \
 	tree \ 
@@ -35,7 +38,7 @@ ENV ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
 # Install Node 12 as additional version of node using nvm
 ARG EXTRA_NODE_VERSION=12
-RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
+RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION} && nvm alias default 14 && nvm use 14"
 
 # [Optional] Uncomment if you want to install more global node packages
 RUN sudo -u node npm install -g \
