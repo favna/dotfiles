@@ -84,7 +84,7 @@
 
 	// VSCode Extension by their IDs
 	"extensions": [
-		// "dbaeumer.vscode-eslint",
+		"dbaeumer.vscode-eslint",
 		// "coenraads.bracket-pair-colorizer-2",
 		// "bierner.github-markdown-preview",
 		// "eamodio.gitlens",
