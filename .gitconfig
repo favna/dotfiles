@@ -1,0 +1,46 @@
+[core]
+	autocrlf = false
+	excludesfile = "~/.gitignore_global"
+	editor = vim
+[user]
+	name = Jeroen Claassens
+	email = support@favware.tech
+[alias]
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+	ba = branch -a
+	bd = branch -d
+	bdd = branch -D
+	ci = commit
+	cian = commit --amend --no-edit
+	co = checkout
+	cp = cherry-pick
+	dci = duet-commit
+	fix = duet-commit -s --amend --reset-author -C HEAD
+	symlink = symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+	pll = pull
+	prune = fetch --all --prune
+	psh = push
+	pt = !git tag -l | xargs git tag -d && git fetch -t
+	rekt = !git add . && git commit -nam git
+	riom = rebase origin/main -i
+	rom = rebase origin/main
+	st = status
+	squash = "!f(){ git rebase -i HEAD~$1; }; f"
+	squashdiff = !git rebase -i HEAD~$(git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD))
+	unadd = reset
+	unstage = reset
+	yolo = !git commit -nam \"chore: $(curl -s whatthecommit.com/index.txt | tr '[:upper:]' '[:lower:]')\" && git push
+	br-delete-regex = "!f(){ git branch -D $(git branch | grep -E $1); }; f"
+    # Delete all local branches but main and the current one, only if they are fully merged with main.
+    br-delete-useless = "!f(){ git branch | grep -v "main" | grep -v ^* | xargs git branch -d; }; f"
+    # Delete all local branches but main and the current one.
+    br-delete-useless-force = "!f(){ git branch | grep -v "main" | grep -v ^* | xargs git branch -D; }; f"
+[pager]
+	branch = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[init]
+	defaultBranch = main
