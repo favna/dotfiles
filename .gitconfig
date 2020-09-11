@@ -29,6 +29,7 @@
 	squashdiff = !git rebase -i HEAD~$(git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD))
 	unadd = reset
 	unstage = reset
+	yeet = !gh pr create -f
 	yolo = !git commit -nam \"chore: $(curl -s whatthecommit.com/index.txt | tr '[:upper:]' '[:lower:]')\" && git push
 	br-delete-regex = "!f(){ git branch -D $(git branch | grep -E $1); }; f"
     # Delete all local branches but main and the current one, only if they are fully merged with main.
