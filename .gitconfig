@@ -1,47 +1,92 @@
 [core]
-	autocrlf = false
-	excludesfile = "~/.gitignore_global"
-	editor = vim
+  autocrlf = false
+  excludesfile = "~/.gitignore_global"
+  editor = vim
 [user]
-	name = Jeroen Claassens
-	email = support@favware.tech
+  name = Jeroen Claassens
+  email = support@favware.tech
 [alias]
-	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
-	ba = branch -a
-	bd = branch -d
-	bdd = branch -D
-	ci = commit
-	cian = commit --amend --no-edit
-	co = checkout
-	cp = cherry-pick
-	dci = duet-commit
-	fix = duet-commit -s --amend --reset-author -C HEAD
-	symlink = symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
-	pll = pull
-	prune = fetch --all --prune
-	psh = push
-	pt = !git tag -l | xargs git tag -d && git fetch -t
-	rekt = !git add . && git commit -nam git
-	riom = rebase origin/main -i
-	rom = rebase origin/main
-	st = status
-	squash = "!f(){ git rebase -i HEAD~$1; }; f"
-	squashdiff = !git rebase -i HEAD~$(git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD))
-	unadd = reset
-	unstage = reset
-	yeet = !gh pr create -f
-	yolo = !git commit -nam \"chore: $(curl -s whatthecommit.com/index.txt | tr '[:upper:]' '[:lower:]')\" && git push
-	br-delete-regex = "!f(){ git branch -D $(git branch | grep -E $1); }; f"
-    # Delete all local branches but main and the current one, only if they are fully merged with main.
-    br-delete-useless = "!f(){ git branch | grep -v "main" | grep -v ^* | xargs git branch -d; }; f"
-    # Delete all local branches but main and the current one.
-    br-delete-useless-force = "!f(){ git branch | grep -v "main" | grep -v ^* | xargs git branch -D; }; f"
+  # List all available aliases
+  alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  # List all branches
+  ba = branch -a
+  # Delete a branched merged with main
+  bd = branch -d
+  # Delete any branch
+  bdd = branch -D
+  # Commit
+  ci = commit
+  # Amend commit without editing message
+  cian = commit --amend --no-edit
+  # Checkout
+  co = checkout
+  # Cherry Pick
+  cp = cherry-pick
+  # Starts a duet commit
+  dci = duet-commit
+  # Fixes authors using duet commit
+  fix = duet-commit -s --amend --reset-author -C HEAD
+  # Fix symbolic link after changing from master to main
+  symlink = symbolic-ref refs/remotes/origin/HEAD refs/remotes/origin/main
+  # Pull
+  pll = pull
+  # Fetch all and prune
+  prune = fetch --all --prune
+  # Push
+  psh = push
+  # Prune local tags and redownload remote tags
+  pt = !git tag -l | xargs git tag -d && git fetch -t
+  # Rebase on top of origin/main, interactive
+  riom = rebase origin/main -i
+  # Rebase on top of origin/main
+  rom = rebase origin/main
+  # Continue the rebase
+  rcm = rebase --continue
+  # Abort the rebase
+  rca = rebase --abort
+  # Status
+  st = status
+  # Squash parameter given amount of commits
+  squash = "!f(){ git rebase -i HEAD~$1; }; f"
+  # Squash the amount of commits between HEAD and origin/main
+  squashdiff = !git rebase -i HEAD~$(git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD))
+  # Pulls with rebase then pushes local commits
+  sync = !git pull -r && git push
+  # Remove a file from being staged by `git add`
+  unstage = reset
+  # Remove a file from being staged by `git add`
+  unadd = unstage
+  # Yeet a PR to GitHub
+  yeet = !gh pr create -f
+  # Quick access to commit allow empty
+  cie = commit --allow-empty
+  # Commit with whatthecommit
+  ciyolo = !git commit -nam \"chore: $(curl -s whatthecommit.com/index.txt | tr '[:upper:]' '[:lower:]')\"
+  # Commit with whatthecommit then push
+  yolo = !git ciyolo && git push
+  # Remove branches based on a pattern
+  br-delete-regex = "!f(){ git branch -D $(git branch | grep -E $1); }; f"
+  # Delete all local branches but main and the current one, only if they are fully merged with main.
+  br-delete-useless = !git branch | grep -v "main" | grep -v ^* | xargs --no-run-if-empty git branch -d
+  # Delete all local branches but main and the current one.
+  br-delete-useless-force = !git branch | grep -v "main" | grep -v ^* | xargs --no-run-if-empty git branch -D
+  # Logs given amount of commit messages, defaults to 1
+  logline = "!f(){ git log -n ${1:-1} --oneline; }; f"
+  ll = logline
+  # Hard resets the local branch to the remote version. Warning: any changes comitted will be lost. This is a destructive command!
+  hardreset = "!f(){ read -n 1 -r -p 'Are you sure that you want to run git hardreset? [Y/n] '; echo; [[ $REPLY =~ ^[Yy]$ ]] && echo; git reset --hard origin/$(git rev-parse --abbrev-ref HEAD); }; f"
+  # Pulls another local branch, when not on that branch. Defaults to "main"
+  pullother = "!f(){ git fetch origin ${1:main}:${1:main}; }; f"
+  # Gets the amount of commits the current branch has diverted from origin/main    
+  maindiff = !git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD)
 [pager]
-	branch = false
+  branch = false
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
+[pull]
+  rebase = true
