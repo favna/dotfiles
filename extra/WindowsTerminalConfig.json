@@ -43,7 +43,7 @@
   "profiles": {
     "defaults": {
       "acrylicOpacity": 0.90000000000000002,
-      "background": "#16171D",
+      "background": "#1F2428",
       "closeOnExit": "graceful",
       "colorScheme": "GitHub Dark",
       "cursorColor": "#FFFFFF",
