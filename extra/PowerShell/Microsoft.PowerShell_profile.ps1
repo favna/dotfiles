@@ -1,6 +1,6 @@
-﻿$Env:STARSHIP_CONFIG = "$Env:USERPROFILE\Documents\PowerShell\starship.toml"
+$Env:STARSHIP_CONFIG = "$Env:USERPROFILE\Documents\PowerShell\starship.toml"
 
-Import-Module posh-git
+Import-Module -Name posh-git
 Import-Module -Name Terminal-Icons
 
 Invoke-Expression (&starship init powershell)
@@ -105,6 +105,14 @@ Function gh-prd {
   gh pr review -d @Args
 }
 
+Function gh-pview {
+  gh pr view -w
+}
+
+Function gh-view {
+  gh repo view -w
+}
+
 #endregion
 
 #region Yarn helper functions
@@ -114,7 +122,7 @@ Function ylx {
 }
 
 Function yarnclean {
-  Remove-Item ((yarn cache dir) + "\*") -Force -Recurse -ErrorAction ignore;
+  Remove-Item ((yarn cache dir) + '\*') -Force -Recurse -ErrorAction ignore;
   regenlockfile;
 }
 
@@ -125,14 +133,14 @@ Function regenlockfile {
 }
 
 Function Yarn-All-Repos {
-  Get-ChildItem -Filter "yarn.lock" -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
-    $dirname=$_
+  Get-ChildItem -Filter 'yarn.lock' -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
+    $dirname = $_
     Push-Location $dirname\..\
 
     Write-Host "Running yarn install for ${dirname}" -ForegroundColor Green
     yf
 
-    Write-Host "-------------" -ForegroundColor Gray
+    Write-Host '-------------' -ForegroundColor Gray
     Pop-Location
   }
 }
@@ -141,16 +149,16 @@ Function Yarn-All-Repos {
 #region Misc
 
 Function Get-All-Repos {
-  Get-ChildItem -Directory -Hidden -Filter ".git" -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
-    $dirname=$_
+  Get-ChildItem -Directory -Hidden -Filter '.git' -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
+    $dirname = $_
     Push-Location $dirname\..\
 
     Write-Host "Processing git status in ${dirname}" -ForegroundColor Green
-    git fetch --all -q --prune
+    Clear-Branches -q
 
-    $STATUS=$(git status | grep -v 'nothing to commit' |  grep -v 'up-to-date' | grep -v '^On branch (?:master|main)$')
+    $STATUS = $(git status | grep -v 'nothing to commit' | grep -v 'up-to-date' | grep -v '^On branch (?:master|main)$')
 
-    if(Get-Variable 'STATUS' -ErrorAction 'Ignore') {
+    if (Get-Variable 'STATUS' -ErrorAction 'Ignore') {
       Write-Host $STATUS | grep --color -E '^|behind|ahead|On branch .*'
     }
 
@@ -158,17 +166,23 @@ Function Get-All-Repos {
       git pull
     }
 
-    Write-Host "-------------" -ForegroundColor Gray
+    Write-Host '-------------' -ForegroundColor Gray
     Pop-Location
   }
 }
 
 Function Clear-Branches {
-  Write-Host "Fetching and pruning remotes" -ForegroundColor Green
-  git fetch --all --prune
-  Write-Host "Pruning local branches" -ForegroundColor Green
-  git br-delete-useless-force 
-  Write-Host "-------------" -ForegroundColor Gray
+  Write-Host 'Fetching and pruning remotes' -ForegroundColor Green
+
+  git fetch --all --prune @Args
+
+  Write-Host 'Pruning local branches' -ForegroundColor Magenta
+
+  foreach ($branch in $(git br-delete-useless-force)) {
+    Write-Host $branch -ForegroundColor Red
+  }
+
+  Write-Host '-------------' -ForegroundColor Gray
 }
 
 function Get-Coverage {
@@ -180,33 +194,65 @@ function Get-Docs {
 }
 
 Function Update-Env {
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+  $env:Path = [System.Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path', 'User')
 }
 
 Function la {
-    Get-ChildItem -Attributes ReadOnly,Hidden,System,Directory,Archive,Device,Normal,Temporary,SparseFile,ReparsePoint,Compressed,Offline,NotContentIndexed,Encrypted,IntegrityStream,NoScrubData @Args
+  Get-ChildItem -Attributes ReadOnly, Hidden, System, Directory, Archive, Device, Normal, Temporary, SparseFile, ReparsePoint, Compressed, Offline, NotContentIndexed, Encrypted, IntegrityStream, NoScrubData @Args
 }
 
 Function yf {
-  yarn --frozen-lockfile
+  yarn --frozen-lockfile @Args
 }
 
 Function Cut-Video {
-  ffmpeg -i $args[0] -ss $args[1] -to $args[2] -y .\out.mp4
+  ffmpeg -i $args[0] -ss $args[1] -to $args[2] -c:v copy -c:a copy -y .\out.mp4
 }
 
-Function saph {
-  Set-Location -Path (-join("E:\dev\sapphireproject\", $args[0]))
+Function Compress-Video {
+  ffmpeg -i $args[0] -b:v 12800k -c:a copy -y .\out.mp4
 }
 
-Function sky {
-  Set-Location -Path (-join("E:\dev\skyraproject\", $args[0]))
+Function Set-SapphireDev-Location {
+  [CmdletBinding()]
+  Param (
+    [Parameter(Mandatory = $False, ValueFromRemainingArguments = $False)]
+    $Repo
+  )
+
+  Process {
+    Set-Location -Path ( -join ('E:\dev\sapphiredev\', $Repo))
+  }
+}
+
+Function Set-SkyraProject-Location {
+  [CmdletBinding()]
+  Param (
+    [Parameter(Mandatory = $False, ValueFromRemainingArguments = $False)]
+    $Repo
+  )
+
+  Process {
+    Set-Location -Path ( -join ('E:\dev\skyraproject\', $Repo))
+  }
+}
+
+Function Set-Favware-Location {
+  [CmdletBinding()]
+  Param (
+    [Parameter(Mandatory = $False, ValueFromRemainingArguments = $False)]
+    $Repo
+  )
+
+  Process {
+    Set-Location -Path ( -join ('E:\dev\favware\', $Repo))
+  }
 }
 
 Function Open-Redis {
   Param (
     [string]$Database = 2
-    )
+  )
 
   Process {
     redis-commander --redis-port 8287 --redis-host localhost --redis-password redis --redis-db $Database --open
@@ -214,7 +260,7 @@ Function Open-Redis {
 }
 
 Function Generate-Gource {
-  gource -f -1920x1080 --camera-mode overview -e 0.5 --background 0D1117 --date-format "%A, %d %B, %Y" -s 0.5 --user-image-dir .\.git\avatar\ --logo .\skyra.png --title "Skyra Development History"
+  gource -f -1920x1080 --camera-mode overview -e 0.5 --background 0D1117 --date-format '%A, %d %B, %Y' -s 0.5 --user-image-dir .\.git\avatar\ --logo .\skyra.png --title 'Skyra Development History'
 }
 
 Function x {
@@ -226,12 +272,29 @@ Function x {
 
 Set-Alias -Name g -Value git
 Set-Alias -Name allc -Value all-contributors
+Set-Alias -Name notepad -Value notepad++
 Set-Alias -Name gti -Value git
 Set-Alias -Name dc -Value docker-compose
+Set-Alias -Name favware -Value Set-Favware-Location
+Set-Alias -Name sky -Value Set-SkyraProject-Location
+Set-Alias -Name saph -Value Set-SapphireDev-Location
+Set-Alias -Name y -Value yarn
 
 #endregion
 
 #region Completions 
 & "$Env:USERPROFILE\Documents\PowerShell\Starship-Completions.ps1"
 & "$Env:USERPROFILE\Documents\PowerShell\Gh-Completions.ps1"
+
+Register-ArgumentCompleter -CommandName Set-SkyraProject-Location -ParameterName Repo -ScriptBlock {
+  Get-ChildItem E:\dev\skyraproject -Name -Directory
+}
+
+Register-ArgumentCompleter -CommandName Set-SapphireDev-Location -ParameterName Repo -ScriptBlock {
+  Get-ChildItem E:\dev\sapphiredev -Name -Directory
+}
+
+Register-ArgumentCompleter -CommandName Set-Favware-Location -ParameterName Repo -ScriptBlock {
+  Get-ChildItem E:\dev\favware -Name -Directory
+}
 #endregion
