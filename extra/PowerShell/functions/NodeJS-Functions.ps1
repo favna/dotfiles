@@ -68,3 +68,11 @@ Function Open-Redis {
 Function Generate-Gource {
     gource -f -1920x1080 --camera-mode overview -e 0.5 --background 0D1117 --date-format '%A, %d %B, %Y' -s 0.5 --user-image-dir .\.git\avatar\ --logo .\skyra.png --title 'Skyra Development History'
 }
+
+Function Disable-Node-Tls {
+	$env:NODE_TLS_REJECT_UNAUTHORIZED = 0
+}
+
+Function Enable-Node-Tls {
+	$env:NODE_TLS_REJECT_UNAUTHORIZED = 1
+}
