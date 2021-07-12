@@ -8,6 +8,8 @@
 [alias]
   # List all available aliases
   alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+  # Shortcut to rev-parse
+  rp = rev-parse
   # List all branches
   ba = branch -a
   # Delete a branched merged with main

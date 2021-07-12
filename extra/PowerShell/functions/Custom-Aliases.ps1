@@ -1,0 +1,12 @@
+Set-Alias -Name g -Value git
+Set-Alias -Name allc -Value all-contributors
+Set-Alias -Name notepad -Value notepad++
+Set-Alias -Name gti -Value git
+Set-Alias -Name dc -Value docker-compose
+Set-Alias -Name favware -Value Set-Favware-Location
+Set-Alias -Name sky -Value Set-SkyraProject-Location
+Set-Alias -Name saph -Value Set-SapphireDev-Location
+Set-Alias -Name nu -Value Start-Npm-Upgrade
+Set-Alias -Name y -Value yarn
+Set-Alias -Name rmf -Value Remove-Files-Recursively-Forced
+Set-Alias -Name rimraf -Value Remove-Files-Recursively-Forced
