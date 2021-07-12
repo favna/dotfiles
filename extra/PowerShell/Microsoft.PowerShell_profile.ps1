@@ -9,6 +9,9 @@ Import-Module -Name posh-git
 Import-Module -Name Terminal-Icons
 
 Invoke-Expression (&starship init powershell)
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
 # Load all custom functions
 . $functionsDirectory\Git-Functions.ps1
