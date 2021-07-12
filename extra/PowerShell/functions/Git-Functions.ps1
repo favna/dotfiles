@@ -2,6 +2,17 @@ Function Get-Current-Git-Branch() {
     git rev-parse --abbrev-ref HEAD
 }
 
+function Get-Main-Git-Branch() {
+    git show-ref -q --verify refs/heads/main
+
+    if ($LastExitCode -eq 0) {
+        Write-Output 'main'
+    }
+    else {
+        Write-Output 'master'
+    }
+}
+
 Function gst {
     git status @Args
 }
@@ -31,7 +42,7 @@ Function gco {
 }
 
 Function gcom {
-    git checkout origin/main @Args
+    git checkout origin/$(Get-Main-Git-Branch) @Args
 }
 
 Function gcbb {
@@ -57,12 +68,12 @@ Function gcl {
 
 Function grlm {
     $currentBranch = Get-Current-Git-Branch
-    git rev-list --count main..$currentBranch
+    git rev-list --count $(Get-Main-Git-Branch)..$currentBranch
 }
 
 Function grlmo {
     $currentBranch = Get-Current-Git-Branch
-    git rev-list --count origin/main..$currentBranch
+    git rev-list --count origin/$(Get-Main-Git-Branch)..$currentBranch
 }
 
 Function grba {
@@ -70,7 +81,7 @@ Function grba {
 }
 
 Function grbm {
-    git rebase origin/main
+    git rebase origin/$(Get-Main-Git-Branch)
 }
 
 Function grbc {
@@ -78,7 +89,7 @@ Function grbc {
 }
 
 Function gom {
-    git merge origin/master
+    git merge origin/$(Get-Main-Git-Branch)
 }
 
 Function Get-All-Repos {
