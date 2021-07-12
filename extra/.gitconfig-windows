@@ -1,5 +1,5 @@
 [core]
-	excludesFile = C:\\Users\\favna\\.git-global-excludes-file
+  excludesFile = C:\\Users\\favna\\.git-global-excludes-file
   editor = \"C:\\Users\\favna\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe\" --wait
 [commit]
   gpgsign = true
@@ -11,10 +11,10 @@
   helper = ""
   helper = manager-core
 [merge]
-    tool = vscode
+  tool = vscode
 [mergetool "vscode"]
-    cmd = code --wait $MERGED
+  cmd = code --wait $MERGED
 [diff]
-    tool = vscode
+  tool = vscode
 [difftool "vscode"]
-    cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code --wait --diff $LOCAL $REMOTE
