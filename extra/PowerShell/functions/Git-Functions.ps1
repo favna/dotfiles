@@ -77,6 +77,10 @@ Function grbc {
     git rebase --continue
 }
 
+Function gom {
+    git merge origin/master
+}
+
 Function Get-All-Repos {
     Get-ChildItem -Directory -Hidden -Filter '.git' -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
         $dirname = $_
