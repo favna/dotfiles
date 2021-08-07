@@ -17,6 +17,18 @@ Function regenlockfile {
 	yarn install
 }
 
+Function Start-Yarn2 {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Mandatory = $False, ValueFromRemainingArguments = $True)]
+        $Arguments
+    )
+
+    Process {
+        node $PSScriptRoot\..\binaries\yarn2.js $Arguments
+    }
+}
+
 Function Yarn-All-Repos {
 	Get-ChildItem -Filter 'yarn.lock' -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
 		$dirname = $_
