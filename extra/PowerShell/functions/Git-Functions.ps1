@@ -66,6 +66,14 @@ Function gcl {
 	git clone @Args
 }
 
+Function grau {
+	git remote add upstream @Args
+}
+
+Function grad {
+	git remote add downstream @Args
+}
+
 Function grlm {
 	$currentBranch = Get-Current-Git-Branch
 	git rev-list --count $(Get-Main-Git-Branch)..$currentBranch
