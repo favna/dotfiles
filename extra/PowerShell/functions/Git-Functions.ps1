@@ -62,8 +62,8 @@ Function grset {
 	git remote set-url @Args
 }
 
-Function gcl {
-	git clone @Args
+Function gpum {
+	git pull upstream $(Get-Main-Git-Branch)
 }
 
 Function grau {
@@ -72,6 +72,10 @@ Function grau {
 
 Function grad {
 	git remote add downstream @Args
+}
+
+Function gcl {
+	git clone @Args
 }
 
 Function grlm {
