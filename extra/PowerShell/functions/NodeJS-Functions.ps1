@@ -1,5 +1,12 @@
 Function yf {
-	yarn --frozen-lockfile @Args
+	$YarnVersion = $(yarn --version)
+
+	if ($YarnVersion.StartsWith('1')) {
+		yarn --frozen-lockfile @Args
+	}
+ else {
+		yarn --immutable @Args
+	}
 }
 
 Function ylx {
