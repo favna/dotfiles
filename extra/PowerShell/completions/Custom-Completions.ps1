@@ -15,6 +15,6 @@ Register-ArgumentCompleter -CommandName Set-Wlis-Location -ParameterName Repo -S
 }
 
 Register-ArgumentCompleter -CommandName Run-Script -ParameterName Script -ScriptBlock {
-	Write-Output @('build', 'package', 'wars', 'jboss', 'logs', 'clearlogs')
+	Write-Output @('build', 'package', 'wars', 'jboss', 'logs', 'clearlogs', 'console')
 }
 

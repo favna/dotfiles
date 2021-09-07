@@ -26,6 +26,9 @@ Function Run-Script {
             "^(?:logs|clearlogs|clear-logs)" {
                 & $scriptDirectory\Clear-Logs @Args
             }
+            console {
+                & $scriptDirectory\Start-Jboss-Console @Args
+            }
             Default {
                 Write-Host "Unknown script parameter detected" -ForegroundColor Red
             }
