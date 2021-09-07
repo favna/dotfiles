@@ -1,9 +1,8 @@
-$currentDirectory = (Get-ChildItem $MyInvocation.MyCommand.Path).Directory.FullName;
-$functionsDirectory = "$currentDirectory\functions";
-$completionsDirectory = "$currentDirectory\completions";
-$aliasesDirectory = "$currentDirectory\aliases";
+$functionsDirectory = "$PSScriptRoot\functions";
+$completionsDirectory = "$PSScriptRoot\completions";
+$aliasesDirectory = "$PSScriptRoot\aliases";
 
-$Env:STARSHIP_CONFIG = "$currentDirectory\starship.toml"
+$Env:STARSHIP_CONFIG = "$PSScriptRoot\starship.toml"
 
 Import-Module -Name posh-git
 Import-Module -Name Terminal-Icons

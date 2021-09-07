@@ -34,3 +34,9 @@ deleted = "[🗑${count}](red) "
 
 [git_commit]
 only_detached = false
+
+[java]
+disabled = true
+
+[package]
+disabled = true
