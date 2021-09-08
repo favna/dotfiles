@@ -33,6 +33,9 @@ Function Run-Script {
             console {
                 & $scriptDirectory\Start-Jboss-Console.ps1 $Flags
             }
+            test {
+                & $scriptDirectory\Test.ps1 $Flags
+            }
             Default {
                 Write-Host 'Unknown script parameter detected' -ForegroundColor Red
             }
