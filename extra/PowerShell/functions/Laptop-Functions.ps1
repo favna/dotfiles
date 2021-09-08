@@ -42,3 +42,12 @@ Function Run-Script {
         }
     }
 }
+
+
+Function Set-Sharing-Resolution {
+    Set-ScreenResolutionEx 1920 1080 1
+}
+
+Function Set-Working-Resolution {
+    Set-ScreenResolutionEx 3440 1440 1
+}

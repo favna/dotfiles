@@ -17,3 +17,5 @@ Set-Alias -Name yarn2 -Value Start-Yarn2
 Set-Alias -Name wlis -Value Set-Wlis-Location
 Set-Alias -Name script -Value Run-Script
 Set-Alias -Name scripts -Value Run-Script
+Set-Alias -Name sharing -Value Set-Sharing-Resolution
+Set-Alias -Name working -Value Set-Working-Resolution
