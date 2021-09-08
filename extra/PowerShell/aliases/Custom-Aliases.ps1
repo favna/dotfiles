@@ -19,3 +19,4 @@ Set-Alias -Name script -Value Run-Script
 Set-Alias -Name scripts -Value Run-Script
 Set-Alias -Name sharing -Value Set-Sharing-Resolution
 Set-Alias -Name working -Value Set-Working-Resolution
+Set-Alias -Name bt -Value Build-Trigger

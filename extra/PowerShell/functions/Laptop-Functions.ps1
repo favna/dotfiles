@@ -43,6 +43,32 @@ Function Run-Script {
     }
 }
 
+Function Build-Trigger {
+    [CmdletBinding()]
+    Param(
+        [Parameter(Position = 0, Mandatory = $True, ValueFromRemainingArguments = $True)]
+        [string[]]
+        $Flags
+    )
+
+    Process {
+        $BaseMessage = 'Trigger Build'
+
+        $Flags | ForEach-Object {
+            switch ($_) {
+                'ormas' { $BaseMessage += ' #RUN_ORMAS' }
+                'order' { $BaseMessage += ' #RUN_ORDER_SUBSCRIPTION' }
+                'plan' { $BaseMessage += ' #RUN_PLAN' }
+                'spoor' { $BaseMessage += ' #RUN_SPOOR' }
+                'vs' { $BaseMessage += ' #RUN_VS' }
+                'all' { $BaseMessage += ' #RUN_ALL' }
+            }
+        }
+
+        git cie -m "$BaseMessage"
+    }
+}
+
 
 Function Set-Sharing-Resolution {
     Set-ScreenResolutionEx 1920 1080 1
