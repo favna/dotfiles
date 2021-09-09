@@ -4,7 +4,7 @@ Function yf {
 	if ($YarnVersion.StartsWith('1')) {
 		yarn --frozen-lockfile @Args
 	}
- else {
+	else {
 		yarn --immutable @Args
 	}
 }
