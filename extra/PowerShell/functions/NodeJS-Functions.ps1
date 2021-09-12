@@ -67,11 +67,11 @@ Function Start-Npm-Upgrade {
 }
 
 Function Get-Coverage {
-	http-server .\coverage\lcov-report\ -p 8081 -c-1 -o
+	http-server .\coverage\lcov-report\ -p 8081 -c-1
 }
 
 Function Get-Docs {
-	http-server .\docs -p 8081 -c-1 -o
+	http-server .\docs -p 8081 -c-1
 }
 
 Function Open-Redis {
