@@ -116,6 +116,10 @@ Function gsd {
 	git squashdiff
 }
 
+Function ga {
+	git add @Args
+}
+
 Function bdr {
 	git br-delete-regex
 }
