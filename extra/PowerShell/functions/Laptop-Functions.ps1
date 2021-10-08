@@ -56,11 +56,12 @@ Function Build-Trigger {
 
         $Flags | ForEach-Object {
             switch ($_) {
-                'ormas' { $BaseMessage += ' #RUN_ORMAS' }
+                'ormas' { $BaseMessage += ' #RUN_GMS_ORMAS' }
                 'order' { $BaseMessage += ' #RUN_ORDER_SUBSCRIPTION' }
                 'plan' { $BaseMessage += ' #RUN_PLAN' }
                 'spoor' { $BaseMessage += ' #RUN_SPOOR' }
                 'vs' { $BaseMessage += ' #RUN_VS' }
+                'docu' { $BaseMessage += ' #DOCU' }
                 'all' { $BaseMessage += ' #RUN_ALL' }
             }
         }
