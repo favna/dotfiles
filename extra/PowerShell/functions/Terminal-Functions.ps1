@@ -89,3 +89,30 @@ Function Set-Wlis-Location {
 Function x {
 	exit;
 }
+
+Function sd {
+	[CmdletBinding()]
+	Param (
+		[Parameter(Mandatory = $True)]
+		[int]
+		$timeout,
+
+		[Parameter(Mandatory = $False)]
+		[string]
+		$unit
+	)
+	
+	Process {
+		if ($null -eq $unit) {
+			$unit = 'm'
+		}
+
+		$timeoutInSeconds = $timeout * 60
+
+		if ($unit -eq 'h') {
+			$timeoutInSeconds *= 60
+		}
+
+		shutdown.exe /s /t $timeoutInSeconds
+	}
+}
