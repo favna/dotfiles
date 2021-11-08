@@ -13,7 +13,8 @@ Set-Alias -Name rimraf -Value Remove-Files-Recursively-Forced
 Set-Alias -Name lsd -Value Launch-Switch-Dvr
 Set-Alias -Name winfetch -Value pwshfetch-test-1
 Set-Alias -Name neofetch -Value pwshfetch-test-1
-Set-Alias -Name yarn2 -Value Start-Yarn2
+Set-Alias -Name yarn2 -Value Start-Yarn3
+Set-Alias -Name yarn3 -Value Start-Yarn3
 Set-Alias -Name wlis -Value Set-Wlis-Location
 Set-Alias -Name script -Value Run-Script
 Set-Alias -Name scripts -Value Run-Script

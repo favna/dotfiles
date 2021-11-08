@@ -24,16 +24,16 @@ Function regenlockfile {
 	yarn install
 }
 
-Function Start-Yarn2 {
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $False, ValueFromRemainingArguments = $True)]
-        $Arguments
-    )
+Function Start-Yarn3 {
+	[CmdletBinding()]
+	Param(
+		[Parameter(Mandatory = $False, ValueFromRemainingArguments = $True)]
+		$Arguments
+	)
 
-    Process {
-        node $PSScriptRoot\..\binaries\yarn2.js $Arguments
-    }
+	Process {
+		node $Env:USERPROFILE\.bin\yarn-3.1.0.cjs $Arguments
+	}
 }
 
 Function Yarn-All-Repos {
@@ -67,11 +67,11 @@ Function Start-Npm-Upgrade {
 }
 
 Function Get-Coverage {
-	http-server .\coverage\lcov-report\ -p 8081 -c-1
+	http-server .\coverage\lcov-report\ -gbso -p 8081 -c-1
 }
 
 Function Get-Docs {
-	http-server .\docs -p 8081 -c-1
+	http-server .\docs -gbso -p 8081 -c-1
 }
 
 Function Open-Redis {
