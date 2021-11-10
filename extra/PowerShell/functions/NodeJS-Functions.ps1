@@ -10,7 +10,7 @@ Function yf {
 }
 
 Function ylx {
-	yarn2 dlx @Args
+	yarn3 dlx @Args
 }
 
 Function yarnclean {
