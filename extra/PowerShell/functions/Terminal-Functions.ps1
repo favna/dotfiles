@@ -1,3 +1,19 @@
+Function .. {
+	Set-Location ../
+}
+
+Function ... {
+	Set-Location ../../
+}
+
+Function .... {
+	Set-Location ../../../
+}
+
+Function ..... {
+	Set-Location ../../../../
+}
+
 Function Remove-Files-Recursively-Forced {
 	Param(
 		[Parameter(ValueFromRemainingArguments = $True)]
