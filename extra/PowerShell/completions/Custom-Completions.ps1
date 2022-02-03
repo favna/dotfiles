@@ -18,3 +18,7 @@ Register-ArgumentCompleter -CommandName Run-Script -ParameterName Script -Script
 	Write-Output @('build', 'package', 'wars', 'jboss', 'logs', 'clearlogs', 'console')
 }
 
+Register-ArgumentCompleter -CommandName Build-Trigger -ParameterName Flags -ScriptBlock {
+	Write-Output @('all-tests', 'all', 'docu', 'it', 'order', 'ormas', 'plan', 'spoor', 'testcafe', 'vs')
+}
+
