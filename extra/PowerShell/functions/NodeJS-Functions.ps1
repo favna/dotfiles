@@ -95,3 +95,46 @@ Function Disable-Node-Tls {
 Function Enable-Node-Tls {
 	$env:NODE_TLS_REJECT_UNAUTHORIZED = 1
 }
+
+Function Flaky-TestCafe {
+	[CmdletBinding()]
+	Param(
+		[Parameter(Mandatory = $True)]
+		$Path,
+	
+		[Parameter(Mandatory = $False)]
+		$Runs
+	)
+
+	Process {
+		$FinalTestResult = 'Success'
+		$FailedTests = ''
+
+		if ($null -eq $Runs) {
+			$Runs = 5
+		}
+
+		Write-Host "Running $Runs times" -ForegroundColor Blue
+
+		for ($i = 1; $i -le $Runs; $i++) {
+			Write-Host -ForegroundColor Yellow "run $i"
+
+			npx testcafe $Path
+
+			$TestResult = $($?)
+
+			if ($TestResult -eq $False) {
+				$FinalTestResult = 'Failed'
+				$FailedTests += "$i, "
+			}
+		}
+
+		if ($FinalTestResult -eq 'Success') {
+			Write-Host -ForegroundColor Green 'All runs passed'
+		}
+		else {
+			Write-Host -ForegroundColor Red 'At least 1 test failed'
+			Write-Host -ForegroundColor Red 'Failed test are: $FailedTests'
+		}
+	}
+}
