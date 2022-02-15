@@ -2,7 +2,7 @@ Set-Alias -Name g -Value git
 Set-Alias -Name allc -Value all-contributors
 Set-Alias -Name notepad -Value notepad++
 Set-Alias -Name gti -Value git
-Set-Alias -Name dc -Value docker-compose
+Set-Alias -Name dc -Value Docker-Compose-Alias
 Set-Alias -Name favware -Value Set-Favware-Location
 Set-Alias -Name sky -Value Set-SkyraProject-Location
 Set-Alias -Name saph -Value Set-SapphireDev-Location

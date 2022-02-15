@@ -132,3 +132,7 @@ Function sd {
 		shutdown.exe /s /t $timeoutInSeconds
 	}
 }
+
+Function Docker-Compose-Alias {
+	docker compose @Args
+}
