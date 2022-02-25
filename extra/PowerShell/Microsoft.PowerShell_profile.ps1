@@ -2,10 +2,9 @@ $functionsDirectory = "$PSScriptRoot\functions";
 $completionsDirectory = "$PSScriptRoot\completions";
 $aliasesDirectory = "$PSScriptRoot\aliases";
 
-Import-Module -Name oh-my-posh
 Import-Module -Name posh-git
-Import-Module -Name PSReadLine
 Import-Module -Name Terminal-Icons
+Import-Module -Name PSReadLine
 
 $PSReadLineOptions = @{
     PredictionSource = 'History'
@@ -14,8 +13,6 @@ $PSReadLineOptions = @{
         'Comment' = 'DarkGray'
     }
 }
-
-oh-my-posh --init --shell pwsh --config C:\Users\favna\OneDrive\Documents\PowerShell\oh-my-posh.json | Invoke-Expression
 
 Set-PSReadLineOption @PSReadLineOptions
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
@@ -38,5 +35,5 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 # Load all custom aliases
 . $aliasesDirectory\Custom-Aliases.ps1
 
-# $Env:STARSHIP_CONFIG = "$PSScriptRoot\starship.toml"
-# Invoke-Expression (&starship init powershell)
+$Env:STARSHIP_CONFIG = "$PSScriptRoot\starship.toml"
+Invoke-Expression (&starship init powershell)
