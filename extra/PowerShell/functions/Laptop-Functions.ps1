@@ -73,6 +73,39 @@ Function Build-Trigger {
     }
 }
 
+Function Set-Wlis-Location {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $False, ValueFromRemainingArguments = $True)]
+        [string]
+        $Repo
+    )
+
+    Process {
+        if ($null -eq $Repo) {
+            $Repo = 'wlis'
+        }
+
+        switch -regex ($Repo) {
+            '^(?:wlis|main)' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis'
+            }
+            'secondary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisSecondary'
+            }
+            'tertiary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisTertiary'
+            }
+            'quaterniary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisQuaterniary'
+            }
+            Default {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis'
+            }
+        }
+    }
+}
+
 
 Function Set-Sharing-Resolution {
     $ChangeDisplay1Result = Set-ScreenResolutionEx 1920 1080 1
