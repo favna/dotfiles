@@ -56,7 +56,7 @@ Function Build-Trigger {
 
         $Flags | ForEach-Object {
             switch ($_) {
-                'all-tests' { $BaseMessage += ' #RUN_ALL_TESTS' }
+                'all-tests' { $BaseMessage += ' #RUN_IT #RUN_TESTCAFE' }
                 'all' { $BaseMessage += ' #RUN_ALL' }
                 'docu' { $BaseMessage += ' #DOCU' }
                 'it' { $BaseMessage += ' #RUN_IT' }
