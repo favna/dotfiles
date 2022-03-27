@@ -11,7 +11,7 @@ Function Compress-Video {
 }
 
 Function Convert-Mkv {
-	ffmpeg -i $args[0] -c copy -y .\out.mp4
+	ffmpeg -i $args[0] -c:v copy -c:a copy -y .\out.mp4
 }
 
 Function Launch-Switch-Dvr {
