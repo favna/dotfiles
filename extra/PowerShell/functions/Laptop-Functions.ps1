@@ -58,6 +58,7 @@ Function Build-Trigger {
             switch ($_) {
                 'all-tests' { $BaseMessage += ' #RUN_IT #RUN_TESTCAFE' }
                 'all' { $BaseMessage += ' #RUN_ALL' }
+                'bds' { $BaseMessage += ' #RUN_BDS' }
                 'docu' { $BaseMessage += ' #DOCU' }
                 'it' { $BaseMessage += ' #RUN_IT' }
                 'order' { $BaseMessage += ' #RUN_GMS_ORMAS' }
