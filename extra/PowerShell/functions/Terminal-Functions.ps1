@@ -105,3 +105,7 @@ Function sd {
 Function Docker-Compose-Alias {
 	docker compose @Args
 }
+
+Function Ruby-Tunnel {
+	cloudflared tunnel run ruby
+}
