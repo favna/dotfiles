@@ -2,7 +2,8 @@ export TERM="xterm-256color"
 export ZSH="$HOME/.oh-my-zsh"
 
 # Extending Path
-export PATH="$PATH:$HOME/.local/bin:`yarn global bin`"
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$PATH:$HOME/.local/bin:`yarn global bin`:$VOLTA_HOME/bin"
 
 alias x="exit"
 
@@ -35,8 +36,5 @@ streamupload() {
 # Sourcing dem files
 source $HOME/.profile
 source $ZSH/oh-my-zsh.sh
-
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
 
 eval "$(starship init zsh)"
