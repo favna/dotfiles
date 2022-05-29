@@ -36,6 +36,8 @@
   prune = fetch --all --prune
   # Push
   psh = push
+  # Push and push tags
+  psht = !git push && git push --tags
   # Prune local tags and redownload remote tags
   pt = !git tag -l | xargs git tag -d && git fetch -t
   # Rebase on top of origin/main, interactive
@@ -69,24 +71,48 @@
   # Remove branches based on a pattern
   br-delete-regex = "!f(){ git branch -D $(git branch | grep -E $1); }; f"
   # Delete all local branches but main and the current one, only if they are fully merged with main.
-  br-delete-useless = !git branch | grep -v "main" | grep -v ^* | xargs --no-run-if-empty git branch -d
+  br-delete-useless = !git branch | grep -v "main" | grep -v ^* | xargs -r git branch -d
   # Delete all local branches but main and the current one.
-  br-delete-useless-force = !git branch | grep -v "main" | grep -v ^* | xargs --no-run-if-empty git branch -D
+  br-delete-useless-force = !git branch | grep -v "main" | grep -v ^* | xargs -r git branch -D
   # Logs given amount of commit messages, defaults to 1
   logline = "!f(){ git log -n ${1:-1} --oneline; }; f"
   ll = logline
   # Hard resets the local branch to the remote version. Warning: any changes comitted will be lost. This is a destructive command!
   hardreset = "!f(){ read -n 1 -r -p 'Are you sure that you want to run git hardreset? [Y/n] '; echo; [[ $REPLY =~ ^[Yy]$ ]] && echo; git reset --hard origin/$(git rev-parse --abbrev-ref HEAD); }; f"
-  # Gets the amount of commits the current branch has diverted from origin/main    
+  # Gets the amount of commits the current branch has diverted from origin/main
   maindiff = !git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD)
+  # alias for submodule
+  sub = submodule
 [pager]
   branch = false
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   process = git-lfs filter-process
   required = true
+[duet "env"]
+  git-author-initials = jc
+  git-author-name = Jeroen Claassens
+  git-author-email = support@favware.tech
+[commit]
+  gpgsign = true
+[tag]
+  forceSignAnnotated = true
 [init]
   defaultBranch = main
 [pull]
   rebase = true
+[merge]
+  tool = vscode
+[mergetool "vscode"]
+  cmd = code --wait $MERGED
+[diff]
+  tool = vscode
+[difftool "vscode"]
+  cmd = code --wait --diff $LOCAL $REMOTE
+[interactive]
+    diffFilter = delta --color-only --features=interactive
