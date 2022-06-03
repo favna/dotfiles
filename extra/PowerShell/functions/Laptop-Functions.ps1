@@ -97,8 +97,8 @@ Function Set-Wlis-Location {
             'tertiary' {
                 Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisTertiary'
             }
-            'quaterniary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisQuaterniary'
+            'quaternary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisQuaternary'
             }
             Default {
                 Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis'
