@@ -31,6 +31,7 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 & "$completionsDirectory\Gh-Completions.ps1"
 & "$completionsDirectory\Custom-Completions.ps1"
 & "$completionsDirectory\Volta-Completions.ps1"
+& "$completionsDirectory\Git-Cliff-Completions.ps1"
 
 # Load all custom aliases
 . $aliasesDirectory\Custom-Aliases.ps1
