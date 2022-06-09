@@ -166,13 +166,13 @@ enable-node-tls() {
 }
 
 cutvideo() {
-    ffmpeg -i $1 -ss $1 -to $2 -y ./out.mp4
+    ffmpeg -i $1 -ss $2 -to $3 -y ./out.mp4
 }
 
 cutvideocopy() {
-    ffmpeg -i $1 -ss $1 -to $2 -c:v copy -c:a copy -y ./out.mp4
+    ffmpeg -i $1 -ss $2 -to $3 -c:v copy -c:a copy -y ./out.mp4
 }
 
 compressvideo() {
-    ffmpeg -i $1 -c:v copy -c:a copy -y ./out.mp4
+    ffmpeg -i $1 -b:v 12800k -c:a copy -y ./out.mp4
 }
