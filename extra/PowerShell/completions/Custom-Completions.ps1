@@ -19,6 +19,6 @@ Register-ArgumentCompleter -CommandName Run-Script -ParameterName Script -Script
 }
 
 Register-ArgumentCompleter -CommandName Build-Trigger -ParameterName Flags -ScriptBlock {
-	Write-Output @('all-tests', 'all', 'docu', 'it', 'order', 'ormas', 'plan', 'spoor', 'testcafe', 'vs')
+	Write-Output @('all-tests', 'all', 'docu', 'it', 'ormas', 'plan', 'spoor', 'testcafe', 'vs')
 }
 

@@ -61,8 +61,7 @@ Function Build-Trigger {
                 'bds' { $BaseMessage += ' #RUN_BDS' }
                 'docu' { $BaseMessage += ' #DOCU' }
                 'it' { $BaseMessage += ' #RUN_IT' }
-                'order' { $BaseMessage += ' #RUN_GMS_ORMAS' }
-                'ormas' { $BaseMessage += ' #RUN_ORMAS' }
+                'ormas' { $BaseMessage += ' #RUN_GMS_ORMAS' }
                 'plan' { $BaseMessage += ' #RUN_PLAN' }
                 'spoor' { $BaseMessage += ' #RUN_SPOOR' }
                 'testcafe' { $BaseMessage += ' #RUN_TESTCAFE' }
