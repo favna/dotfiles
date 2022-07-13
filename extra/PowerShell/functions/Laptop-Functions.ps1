@@ -58,6 +58,7 @@ Function Build-Trigger {
             switch ($_) {
                 'extended' { $BaseMessage += ' #RUN_EXTENDED_TESTS' }
                 'all' { $BaseMessage += ' #RUN_ALL' }
+                'bff' { $BaseMessage += ' #RUN_BFF' }
                 'bds' { $BaseMessage += ' #RUN_BDS' }
                 'docu' { $BaseMessage += ' #DOCU' }
                 'order' { $BaseMessage += ' #RUN_ORDER' }
