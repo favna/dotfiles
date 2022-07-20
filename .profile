@@ -19,6 +19,9 @@ alias ghv="gh repo view -w"
 alias rmf="rm -rf"
 alias dc="docker compose"
 alias ruby="cloudflared tunnel run ruby"
+alias gpp="git push"
+alias gpl="git pull"
+alias y="yarn"
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"
