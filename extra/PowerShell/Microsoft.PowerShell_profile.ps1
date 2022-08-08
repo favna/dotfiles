@@ -25,6 +25,7 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 . $functionsDirectory\Terminal-Functions.ps1
 . $functionsDirectory\Video-Functions.ps1
 . $functionsDirectory\ScreenResolution.ps1
+. $functionsDirectory\ScreenSizing.ps1
 
 # Load all custom completions
 & "$completionsDirectory\Starship-Completions.ps1"
