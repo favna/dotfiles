@@ -1,6 +1,6 @@
 export TERM="xterm-256color"
 export VOLTA_HOME="$HOME/.volta"
-export PATH="$PATH:$HOME/.local/bin:$VOLTA_HOME/bin"
+export PATH="$PATH:$HOME/.local/bin:$VOLTA_HOME/bin:$HOME/.rover/bin"
 export ZSH="$HOME/.oh-my-zsh"
 export PROMPT_EOL_MARK=''
 
@@ -14,7 +14,7 @@ STREAMABLEPASSWORD="password"
 
 plugins=(
   zsh-git-enhanced
-#   zsh-autosuggestions
+  zsh-autosuggestions
   zsh-syntax-highlighting
 )
 
