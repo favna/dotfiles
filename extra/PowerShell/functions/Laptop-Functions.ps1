@@ -47,12 +47,13 @@ Function Build-Trigger {
     [CmdletBinding()]
     Param(
         [Parameter(Position = 0, Mandatory = $True, ValueFromRemainingArguments = $True)]
+        [ValidateNotNull()]
         [string[]]
         $Flags
     )
 
     Process {
-        $BaseMessage = 'Trigger Build'
+        $BaseMessage = "Trigger Build"
 
         $Flags | ForEach-Object {
             switch ($_) {

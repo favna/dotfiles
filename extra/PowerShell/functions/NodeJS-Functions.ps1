@@ -4,7 +4,7 @@ Function yf {
 	if ($YarnVersion.StartsWith('1')) {
 		yarn --frozen-lockfile @Args
 	}
-	else {
+ else {
 		yarn --immutable @Args
 	}
 }
@@ -75,11 +75,11 @@ Function Start-Npm-Upgrade {
 }
 
 Function Get-Coverage {
-	http-server .\coverage\lcov-report\ -gbso -p 8081 -c-1
+	http-server .\coverage\lcov-report\ -gbso -p 8082 -c-1
 }
 
 Function Get-Docs {
-	http-server .\docs -gbso -p 8081 -c-1
+	http-server .\docs -gbso -p 8082 -c-1
 }
 
 Function Open-Redis {
@@ -115,8 +115,8 @@ Function Flaky-TestCafe {
 	)
 
 	Process {
-		$FinalTestResult = 'Success'
-		$FailedTests = ''
+		$FinalTestResult = "Success"
+		$FailedTests = ""
 
 		if ($null -eq $Runs) {
 			$Runs = 5
@@ -132,15 +132,14 @@ Function Flaky-TestCafe {
 			$TestResult = $($?)
 
 			if ($TestResult -eq $False) {
-				$FinalTestResult = 'Failed'
+				$FinalTestResult = "Failed"
 				$FailedTests += "$i, "
 			}
 		}
 
-		if ($FinalTestResult -eq 'Success') {
-			Write-Host -ForegroundColor Green 'All runs passed'
-		}
-		else {
+		if ($FinalTestResult -eq "Success") {
+			Write-Host -ForegroundColor Green "All runs passed"
+		} else {
 			Write-Host -ForegroundColor Red 'At least 1 test failed'
 			Write-Host -ForegroundColor Red 'Failed test are: $FailedTests'
 		}

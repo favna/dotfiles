@@ -1,4 +1,4 @@
-command_timeout = 1000
+command_timeout = 5000
 
 [aws]
 format = ""
@@ -16,21 +16,7 @@ disabled = true
 disabled = false
 
 [time]
-disabled = false
-format = '🕙[ $time ]($style)'
-time_format = "%R"
-
-[git_status]
-ahead = "⇡${count}"
-diverged = "⇡${ahead_count} ⇣${behind_count}"
-behind = "⇣${count}"
-conflicted = "[🤪${count}](bright-red) "
-untracked = "🤷‍${count} "
-stashed = "[📦 ${count}](bright-blue) "
-modified = "[📒${count}](yellow) "
-staged = "[✔${count}](green) "
-renamed = "[🚗${count}](bright-red) "
-deleted = "[🗑${count}](red) "
+disabled = true
 
 [git_commit]
 only_detached = false
@@ -40,3 +26,6 @@ disabled = true
 
 [package]
 disabled = true
+
+[[battery.display]]
+threshold = 100
