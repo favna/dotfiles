@@ -99,6 +99,9 @@ Function Set-Wlis-Location {
             'quaternary' {
                 Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisQuaternary'
             }
+            'quinary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisQuinary'
+            }
             Default {
                 Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis'
             }

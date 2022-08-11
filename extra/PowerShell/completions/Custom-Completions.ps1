@@ -11,7 +11,7 @@ Register-ArgumentCompleter -CommandName Set-Favware-Location -ParameterName Repo
 }
 
 Register-ArgumentCompleter -CommandName Set-Wlis-Location -ParameterName Repo -ScriptBlock {
-	Write-Output @('main', 'wlis', 'secondary', 'tertiary', 'quaternary')
+	Write-Output @('main', 'wlis', 'secondary', 'tertiary', 'quaternary', 'quinary')
 }
 
 Register-ArgumentCompleter -CommandName Run-Script -ParameterName Script -ScriptBlock {
