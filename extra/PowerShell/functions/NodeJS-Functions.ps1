@@ -4,7 +4,7 @@ Function yf {
 	if ($YarnVersion.StartsWith('1')) {
 		yarn --frozen-lockfile @Args
 	}
- else {
+	else {
 		yarn --immutable @Args
 	}
 }
@@ -84,11 +84,12 @@ Function Get-Docs {
 
 Function Open-Redis {
 	Param (
-		[string]$Database = 2
+		[string]$Database = 2,
+		[string]$Port = 1424
 	)
 
 	Process {
-		redis-commander --redis-port 8287 --redis-host localhost --redis-password redis --redis-db $Database --open
+		redis-commander --redis-port $Port --redis-host localhost --redis-password redis --redis-db $Database --open
 	}
 }
 

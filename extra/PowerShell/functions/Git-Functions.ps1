@@ -120,7 +120,6 @@ Function ga {
 	git add @Args
 }
 
-
 Function bdr {
 	git br-delete-regex
 }
