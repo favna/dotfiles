@@ -128,7 +128,7 @@ Function Flaky-TestCafe {
 		for ($i = 1; $i -le $Runs; $i++) {
 			Write-Host -ForegroundColor Yellow "run $i"
 
-			npx testcafe $Path
+			yarn testcafe $Path
 
 			$TestResult = $($?)
 
