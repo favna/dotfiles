@@ -125,11 +125,11 @@ Function ga {
 }
 
 Function gsw {
-	git switch
+	git switch @Args
 }
 
 Function gswc {
-	git switch -c
+	git switch -c @Args
 }
 
 Function gswm {
