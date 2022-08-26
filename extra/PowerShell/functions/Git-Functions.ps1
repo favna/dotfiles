@@ -93,6 +93,10 @@ Function grba {
 }
 
 Function grbm {
+	git rebase $(Get-Main-Git-Branch)
+}
+
+Function grbom {
 	git rebase origin/$(Get-Main-Git-Branch)
 }
 
@@ -118,6 +122,18 @@ Function gsd {
 
 Function ga {
 	git add @Args
+}
+
+Function gsw {
+	git switch
+}
+
+Function gswc {
+	git switch -c
+}
+
+Function gswm {
+	git switch $(Get-Main-Git-Branch)
 }
 
 Function bdr {
