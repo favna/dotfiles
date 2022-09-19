@@ -66,6 +66,7 @@ Function Build-Trigger {
                 'plan' { $BaseMessage += ' #RUN_PLAN' }
                 'spoor' { $BaseMessage += ' #RUN_SPOOR' }
                 'vs' { $BaseMessage += ' #RUN_VS' }
+                'deploy' { $BaseMessage += ' #DEPLOY' }
             }
         }
 
