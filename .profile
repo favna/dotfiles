@@ -22,6 +22,8 @@ alias ruby="cloudflared tunnel run ruby"
 alias gpp="git push"
 alias gpl="git pull"
 alias y="yarn"
+alias yb="yarn build"
+alias yc="yarn clean"
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"

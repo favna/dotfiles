@@ -9,6 +9,14 @@ Function yf {
 	}
 }
 
+Function yb {
+	yarn build @Args
+}
+
+Function yc {
+	yarn clean @Args
+}
+
 Function ylx {
 	yarn3 dlx @Args
 }
