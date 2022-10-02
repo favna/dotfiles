@@ -78,7 +78,7 @@
   logline = "!f(){ git log -n ${1:-1} --oneline; }; f"
   ll = logline
   # Hard resets the local branch to the remote version. Warning: any changes comitted will be lost. This is a destructive command!
-  hardreset = "!f(){ read -n 1 -r -p 'Are you sure that you want to run git hardreset? [Y/n] '; echo; [[ $REPLY =~ ^[Yy]$ ]] && echo; git reset --hard origin/$(git rev-parse --abbrev-ref HEAD); }; f"
+  hardreset = !git reset --hard origin/$(git rev-parse --abbrev-ref HEAD)
   # Gets the amount of commits the current branch has diverted from origin/main
   maindiff = !git rev-list --count origin/main..$(git rev-parse --abbrev-ref HEAD)
   # alias for submodule
@@ -109,10 +109,12 @@
 [merge]
   tool = vscode
 [mergetool "vscode"]
-  cmd = code --wait $MERGED
+  cmd = code -wr $MERGED
 [diff]
   tool = vscode
 [difftool "vscode"]
-  cmd = code --wait --diff $LOCAL $REMOTE
+  cmd = code -wr --diff $LOCAL $REMOTE
 [interactive]
-    diffFilter = delta --color-only --features=interactive
+  diffFilter = delta --color-only --features=interactive
+[rebase]
+	autoStash = true
