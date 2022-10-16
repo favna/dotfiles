@@ -24,6 +24,7 @@ alias gpl="git pull"
 alias y="yarn"
 alias yb="yarn build"
 alias yc="yarn clean"
+alias yt="yarn test"
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"

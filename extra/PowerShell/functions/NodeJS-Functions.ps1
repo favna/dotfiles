@@ -17,6 +17,10 @@ Function yc {
 	yarn clean @Args
 }
 
+Function yt {
+	yarn test @Args
+}
+
 Function ylx {
 	yarn3 dlx @Args
 }
