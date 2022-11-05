@@ -25,6 +25,8 @@ alias y="yarn"
 alias yb="yarn build"
 alias yc="yarn clean"
 alias yt="yarn test"
+alias ybu="yarn bump"
+alias ycu="yarn check-update"
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"

@@ -21,6 +21,14 @@ Function yt {
 	yarn test @Args
 }
 
+Function ybu {
+	yarn bump @Args
+}
+
+Function ycu {
+	yarn check-update @Args
+}
+
 Function ylx {
 	yarn3 dlx @Args
 }
