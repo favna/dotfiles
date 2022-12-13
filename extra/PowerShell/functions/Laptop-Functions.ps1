@@ -12,7 +12,7 @@ Function Run-Script {
     )
 
     Process {
-        $scriptDirectory = 'C:\Users\j.claassens\Documents\workspace\scripts'
+        $scriptDirectory = 'C:\Users\j.claassens\Documents\workspace\wlis\scripts'
 
         switch -regex ($Script) {
             build {
@@ -89,22 +89,22 @@ Function Set-Wlis-Location {
 
         switch -regex ($Repo) {
             '^(?:wlis|main)' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis\wlis'
             }
             'secondary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisSecondary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis\wlisSecondary'
             }
             'tertiary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisTertiary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis\wlisTertiary'
             }
             'quaternary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisQuaternary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis\wlisQuaternary'
             }
             'quinary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlisQuinary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis\wlisQuinary'
             }
             Default {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\wlis\wlis'
             }
         }
     }
