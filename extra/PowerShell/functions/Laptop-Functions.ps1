@@ -53,7 +53,7 @@ Function Build-Trigger {
     )
 
     Process {
-        $BaseMessage = "Trigger Build"
+        $BaseMessage = 'Trigger Build'
 
         $Flags | ForEach-Object {
             switch ($_) {
@@ -166,5 +166,50 @@ Function Set-Working-Resolution {
 
     if ($ChangeDisplay1Result -eq 'Failed To Change The Resolution.') {
         Set-ScreenResolutionEx 3440 1440 0
+    }
+}
+
+Function Switch-Java-Version {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $True)]
+        [int]
+        $Version
+    )
+
+    Process {
+        $HasChangedJavaVersion = $False
+
+        switch ($Version) {
+            8 {
+                $JAVA_HOME = 'C:\Program Files\Eclipse Adoptium\jdk-8.0.352.8-hotspot'
+                [Environment]::SetEnvironmentVariable('JAVA_HOME', "${JAVA_HOME}", 'USER')
+
+                $current_PATH = [Environment]::GetEnvironmentVariable('PATH', 'USER');
+                [Environment]::SetEnvironmentVariable('PATH', "${JAVA_HOME}\bin;$current_PATH;", 'USER')
+
+                $HasChangedJavaVersion = $True
+                Write-Host 'Java 8 activated.' -ForegroundColor Black -BackgroundColor DarkGreen
+            }
+            11 {
+                $JAVA_HOME = 'C:\Program Files\AdoptOpenJDK\jdk-11.0.10.9-hotspot'
+                [Environment]::SetEnvironmentVariable('JAVA_HOME', "${JAVA_HOME}", 'USER')
+
+                $current_PATH = [Environment]::GetEnvironmentVariable('PATH', 'USER');
+                [Environment]::SetEnvironmentVariable('PATH', "${JAVA_HOME}\bin;$current_PATH;", 'USER')
+
+                $HasChangedJavaVersion = $True
+                Write-Host 'Java 11 activated.' -ForegroundColor Black -BackgroundColor DarkGreen
+            }
+            Default {
+                Write-Host 'Unknown Java Version' -ForegroundColor White -BackgroundColor DarkRed -NoNewline
+            }
+        }
+
+        if ($HasChangedJavaVersion) {
+            # Reload the PATH
+            $env:Path = [System.Environment]::ExpandEnvironmentVariables([System.Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path', 'User'))
+            Write-Host 'Path reloaded.' -ForegroundColor Black -BackgroundColor DarkGreen -NoNewline
+        }
     }
 }
