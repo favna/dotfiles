@@ -14,6 +14,10 @@ Register-ArgumentCompleter -CommandName Set-Wlis-Location -ParameterName Repo -S
 	Write-Output @('main', 'wlis', 'secondary', 'tertiary', 'quaternary', 'quinary')
 }
 
+Register-ArgumentCompleter -CommandName Set-Lavs-Location -ParameterName Repo -ScriptBlock {
+	Write-Output @('main', 'lavs', '4', '5primary', '4secondary', '5', '5primary', '5secondary')
+}
+
 Register-ArgumentCompleter -CommandName Run-Script -ParameterName Script -ScriptBlock {
 	Write-Output @('build', 'package', 'wars', 'jboss', 'logs', 'clearlogs', 'console')
 }

@@ -110,6 +110,48 @@ Function Set-Wlis-Location {
     }
 }
 
+Function Set-Lavs-Location {
+    [CmdletBinding()]
+    Param (
+        [Parameter(Mandatory = $False, ValueFromRemainingArguments = $True)]
+        [string]
+        $Repo
+    )
+
+    Process {
+        if ($null -eq $Repo) {
+            $Repo = 'lavs'
+        }
+
+        switch -regex ($Repo) {
+            '^(?:lavs|main)' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
+            }
+            '4' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
+            }
+            '4primary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
+            }
+            '4secondary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4secondary'
+            }
+            '5' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5primary'
+            }
+            '5primary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5primary'
+            }
+            '5secondary' {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5secondary'
+            }
+            Default {
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
+            }
+        }
+    }
+}
+
 
 Function Set-Sharing-Resolution {
     $ChangeDisplay1Result = Set-ScreenResolutionEx 1920 1080 1

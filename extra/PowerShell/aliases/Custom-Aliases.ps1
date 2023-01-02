@@ -16,6 +16,7 @@ Set-Alias -Name neofetch -Value pwshfetch-test-1
 Set-Alias -Name yarn2 -Value Start-Yarn3
 Set-Alias -Name yarn3 -Value Start-Yarn3
 Set-Alias -Name wlis -Value Set-Wlis-Location
+Set-Alias -Name lavs -Value Set-Lavs-Location
 Set-Alias -Name script -Value Run-Script
 Set-Alias -Name scripts -Value Run-Script
 Set-Alias -Name sharing -Value Set-Sharing-Resolution
