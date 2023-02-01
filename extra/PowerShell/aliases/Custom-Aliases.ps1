@@ -17,3 +17,4 @@ Set-Alias -Name yarn2 -Value Start-Yarn3
 Set-Alias -Name yarn3 -Value Start-Yarn3
 Set-Alias -Name sharing -Value Set-Sharing-Resolution
 Set-Alias -Name working -Value Set-Working-Resolution
+Set-Alias -Name lavs -Value Set-Lavs-Location

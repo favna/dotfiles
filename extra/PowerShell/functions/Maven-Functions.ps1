@@ -1,23 +1,23 @@
 Function maven {
-    mvn -T 4.0C -pl !gms/gms-release -pl !sbc/sbc-release -pl !wli/wli-release -DskipTests -D"maven.javadoc.skip" -DskipRpms -D"skip.keten.tests" -D"skip.integration.tests" @Args
+    mvn -T 4.0C -D"maven.javadoc.skip" @Args
 }
 
 Function mvnci {
-    maven clean install
+    maven clean install @Args
 }
 
 Function mvni {
-    maven install
+    maven install @Args
 }
 
 Function mvnc {
-    maven clean
-}
+    maven clean @Arg
+s}
 
 Function mvnb {
-    mvn install -T 4.0C -DskipTests -D"maven.javadoc.skip" -DskipRpms -D"skip.keten.tests" -D"skip.integration.tests" @Args
+    mvn install -T 4.0C -DskipTests -D"maven.javadoc.skip" @Args
 }
 
 Function mvnbc {
-    mvn clean install -T 4.0C -DskipTests -D"maven.javadoc.skip" -DskipRpms -D"skip.keten.tests" -D"skip.integration.tests" @Args
+    mvn clean install -T 4.0C -DskipTests -D"maven.javadoc.skip" @Args
 }

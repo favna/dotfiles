@@ -70,7 +70,7 @@ Function Switch-Java-Version {
 
         switch ($Version) {
             8 {
-                $JAVA_HOME = 'C:\Program Files\Eclipse Adoptium\jdk-8.0.352.8-hotspot'
+                $JAVA_HOME = 'C:\Program Files\Eclipse Adoptium\jdk-8.0.362.9-hotspot'
                 [Environment]::SetEnvironmentVariable('JAVA_HOME', "${JAVA_HOME}", 'USER')
 
                 $current_PATH = [Environment]::GetEnvironmentVariable('PATH', 'USER');
@@ -80,7 +80,7 @@ Function Switch-Java-Version {
                 Write-Host 'Java 8 activated.' -ForegroundColor Black -BackgroundColor DarkGreen
             }
             11 {
-                $JAVA_HOME = 'C:\Program Files\AdoptOpenJDK\jdk-11.0.10.9-hotspot'
+                $JAVA_HOME = 'C:\Program Files\AdoptOpenJDK\jdk-11.0.11.9-hotspot'
                 [Environment]::SetEnvironmentVariable('JAVA_HOME', "${JAVA_HOME}", 'USER')
 
                 $current_PATH = [Environment]::GetEnvironmentVariable('PATH', 'USER');
