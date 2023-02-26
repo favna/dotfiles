@@ -27,6 +27,9 @@ alias yc="yarn clean"
 alias yt="yarn test"
 alias ybu="yarn bump"
 alias ycu="yarn check-update"
+alias yui="yarn upgrade-interactive"
+alias rlyd="regenlockfile && yarn dedupe"
+alias gpshtyp="git push && git push --tags && yarn npm publish"
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"
