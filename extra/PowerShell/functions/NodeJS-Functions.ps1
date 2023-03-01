@@ -29,8 +29,16 @@ Function ycu {
 	yarn check-update @Args
 }
 
-Function ylx {
-	yarn3 dlx @Args
+Function yui {
+	yarn upgrade-interactive @Args
+}
+
+Function rlyd {
+	regenlockfile && yarn dedupe @Args
+}
+
+Function gpshtyp {
+	git push && git push --tags && yarn npm publish @Args
 }
 
 Function yarnclean {
