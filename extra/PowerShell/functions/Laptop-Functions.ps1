@@ -13,28 +13,22 @@ Function Set-Lavs-Location {
 
         switch -regex ($Repo) {
             '^(?:lavs|main)' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4'
             }
             '4' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4'
             }
             '4primary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
-            }
-            '4secondary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4secondary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4'
             }
             '5' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5primary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5'
             }
             '5primary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5primary'
-            }
-            '5secondary' {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5secondary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs5'
             }
             Default {
-                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4primary'
+                Set-Location -Path 'C:\Users\j.claassens\Documents\workspace\lavs\lavs4'
             }
         }
     }
