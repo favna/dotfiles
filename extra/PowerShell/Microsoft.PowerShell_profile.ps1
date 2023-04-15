@@ -28,6 +28,7 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 . $functionsDirectory\Video-Functions.ps1
 . $functionsDirectory\ScreenResolution.ps1
 . $functionsDirectory\ScreenSizing.ps1
+. $functionsDirectory\GitHub-Copilot.ps1
 
 # Load all custom completions
 & "$completionsDirectory\Starship-Completions.ps1"
