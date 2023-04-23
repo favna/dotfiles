@@ -1,6 +1,6 @@
 export TERM="xterm-256color"
 export VOLTA_HOME="$HOME/.volta"
-export PATH="$PATH:$HOME/.local/bin:$VOLTA_HOME/bin:$HOME/.rover/bin:$HOME/.fig/bin"
+export PATH="$PATH:$HOME/.local/bin:$VOLTA_HOME/bin:$HOME/.rover/bin:$HOME/.fig/bin:$JAVA_HOME/bin:$PYENV_ROOT/bin"
 export ZSH="$HOME/.oh-my-zsh"
 export PROMPT_EOL_MARK=''
 
@@ -18,21 +18,7 @@ plugins=(
   zsh-syntax-highlighting
 )
 
-gitalias() {
-    cat ~/.oh-my-zsh/custom/plugins/zsh-git-enhanced/zsh-git-enhanced.plugin.zsh | grep $1
-}
-
-streamupload() {
-  code=$(curl --request POST --url https://api.streamable.com/upload --user $STREAMABLEUSER:$STREAMABLEPASSWORD --form file=@"$1" | jq -r '.shortcode');
-  echo Added https://streamable.com/$code to your clipboard;
-  echo https://streamable.com/$code | clip.exe;
-}
-
 source $ZSH/oh-my-zsh.sh
-source $HOME/.profile
-source "$HOME/.cargo/env"
+source $HOME/.zprofile
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
-
-export PATH="$PATH:`yarn global bin`"
