@@ -35,7 +35,7 @@
   pll = pull
   # Fetch all and prune
   prune = fetch --all --prune
-  # Push3
+  # Push
   psh = push
   # Push and push tags
   psht = !git push && git push --tags
