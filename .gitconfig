@@ -2,6 +2,7 @@
   autocrlf = false
   excludesfile = "~/.gitignore_global"
   editor = vim
+  pager = delta
 [user]
   name = Jeroen Claassens
   email = support@favware.tech
@@ -34,7 +35,7 @@
   pll = pull
   # Fetch all and prune
   prune = fetch --all --prune
-  # Push
+  # Push3
   psh = push
   # Push and push tags
   psht = !git push && git push --tags
@@ -65,7 +66,7 @@
   # Quick access to commit allow empty
   cie = commit --allow-empty
   # Commit with whatthecommit
-  ciyolo = "!f() { response=$(curl -s https://whatthecommit.com/index.json); message=$(echo ${response} | jq -r '.commit_message'); link=$(echo ${response} | jq -r '.permalink'); git commit $@ -nam \"chore: $(echo ${message} | tr '[:upper:]' '[:lower:]')\" -m \"permalink: ${link}\"; }; f"
+  ciyolo = !git commit -nam \"chore: $(curl -sL https://whatthecommit.com/index.txt | tr '[:upper:]' '[:lower:]')\"
   # Commit with whatthecommit then push
   yolo = !git ciyolo && git push
   # Remove branches based on a pattern
@@ -108,13 +109,22 @@
   rebase = true
 [merge]
   tool = vscode
+  autostash = true
 [mergetool "vscode"]
   cmd = code -wr $MERGED
 [diff]
   tool = vscode
 [difftool "vscode"]
   cmd = code -wr --diff $LOCAL $REMOTE
-[interactive]
-  diffFilter = delta --color-only --features=interactive
+# [interactive]
+#   diffFilter = delta --color-only --features=interactive
 [rebase]
-	autoStash = true
+  autoStash = true
+[push]
+  autoSetupRemote = true
+[delta]
+  features = side-by-side line-numbers
+  hyperlinks = true
+  hyperlinks-file-link-format = "vscode://file/{path}:{line}"
+[delta "interactive"]
+  keep-plus-minus-markers = false
