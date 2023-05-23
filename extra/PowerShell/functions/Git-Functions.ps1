@@ -136,22 +136,12 @@ Function gswm {
 	git switch $(Get-Main-Git-Branch)
 }
 
+Function gaa {
+	git add --all @Args
+}
+
 Function gcmsg {
-	[CmdletBinding()]
-	Param (
-		[Parameter(Mandatory = $True)]
-		[string]
-		$Message,
-
-		# Remaining git arguments
-		[Parameter(Mandatory = $False, ValueFromRemainingArguments = $True)]
-		[string]
-		$RemainingArgs
-	)
-
-	Process {
-		git commit --message $Message $RemainingArgs
-	}
+	git commit --message @Args
 }
 
 Function bdr {
