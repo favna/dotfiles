@@ -40,7 +40,7 @@
   # Push and push tags
   psht = !git push && git push --tags
   # Prune local tags and redownload remote tags
-  pt = !git tag -l | xargs git tag -d && git fetch -t
+  pt = !git fetch --prune origin "+refs/tags/*:refs/tags/*" && git fetch -t
   # Rebase on top of origin/main, interactive
   riom = rebase origin/main -i
   # Rebase on top of origin/main
