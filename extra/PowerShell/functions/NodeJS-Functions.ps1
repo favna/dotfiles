@@ -145,7 +145,7 @@ Function Flaky-TestCafe {
 
 	Process {
 		$FinalTestResult = "Success"
-		$FailedTests = ""
+		[int32[]]$FailedTests = @();
 
 		if ($null -eq $Runs) {
 			$Runs = 5
@@ -162,7 +162,7 @@ Function Flaky-TestCafe {
 
 			if ($TestResult -eq $False) {
 				$FinalTestResult = "Failed"
-				$FailedTests += "$i, "
+				$FailedTests += $i
 			}
 		}
 
@@ -170,7 +170,7 @@ Function Flaky-TestCafe {
 			Write-Host -ForegroundColor Green "All runs passed"
 		} else {
 			Write-Host -ForegroundColor Red 'At least 1 test failed'
-			Write-Host -ForegroundColor Red 'Failed test are: $FailedTests'
+			Write-Host -ForegroundColor Red 'Failed test are:' $($FailedTests -join ',')
 		}
 	}
 }
