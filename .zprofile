@@ -31,6 +31,8 @@ alias yui="yarn upgrade-interactive"
 alias rlyd="regenlockfile && yarn dedupe"
 alias gpshtyp="git push && git push --tags && yarn npm publish"
 alias python="python3"
+alias air="$AIR_DEV_PATH/tools/aio.sh"
+alias lag="ls -al | grep"
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"
