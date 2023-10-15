@@ -157,7 +157,12 @@ Function bduf {
 }
 
 Function Get-All-Repos {
-	Get-ChildItem -Directory -Hidden -Filter '.git' -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
+	Get-ChildItem -Directory |
+	Where-Object Name -NotIn @('Windows', 'Program Files', '$Recycle.Bin', 'System Volume Information') |
+	ForEach-Object {
+		Get-ChildItem $_.FullName -Directory -Hidden -Filter '.git' -Recurse -Depth 2 -Exclude node_modules 
+	} |
+	ForEach-Object {
 		$dirname = $_
 		Push-Location $dirname\..\
 

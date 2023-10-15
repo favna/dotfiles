@@ -73,7 +73,12 @@ Function Start-Yarn3 {
 }
 
 Function Yarn-All-Repos {
-	Get-ChildItem -Filter 'yarn.lock' -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
+	Get-ChildItem -Directory |
+	Where-Object Name -NotIn @('Windows', 'Program Files', '$Recycle.Bin', 'System Volume Information') |
+	ForEach-Object {
+		Get-ChildItem $_.FullName -File -Filter 'yarn.lock' -Recurse -Depth 2 -Exclude node_modules 
+	} |
+	ForEach-Object {
 		$dirname = $_
 		Push-Location $dirname\..\
 
@@ -86,7 +91,12 @@ Function Yarn-All-Repos {
 }
 
 Function Npm-All-Repos {
-	Get-ChildItem -Filter 'package-lock.json' -Recurse -Depth 2 -Exclude node_modules | ForEach-Object {
+	Get-ChildItem -Directory |
+	Where-Object Name -NotIn @('Windows', 'Program Files', '$Recycle.Bin', 'System Volume Information') |
+	ForEach-Object {
+		Get-ChildItem $_.FullName -File -Filter 'package-lock.json' -Recurse -Depth 2 -Exclude node_modules 
+	} |
+	ForEach-Object {
 		$dirname = $_
 		Push-Location $dirname\..\
 
