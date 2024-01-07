@@ -118,10 +118,10 @@ using System.Runtime.InteropServices;
 namespace Sleeper {
 	public class Sleeper {
 		[DllImport("user32.dll")]
-		public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);
+		public static extern int PostMessage(int hWnd, int hMsg, int wParam, int lParam);
 	}
 }
 '@;
 	Add-Type -TypeDefinition $Code
-	[Sleeper.Sleeper]::SendMessage(-1, 0x0112, 0xF170, 2)  
+	[Sleeper.Sleeper]::PostMessage(0xffff, 0x0112, 0xF170, 2)  
 }
