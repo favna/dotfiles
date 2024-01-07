@@ -106,6 +106,10 @@ Function Docker-Compose-Alias {
 	docker compose @Args
 }
 
-Function Ruby-Tunnel {
-	cloudflared tunnel run ruby
+Function Spinel-Tunnel {
+	cloudflared tunnel run spinel
+}
+
+Function Sleep-Monitors {
+	(Add-Type '[DllImport("user32.dll")]public static extern int SendMessage(int hWnd, int hMsg, int wParam, int lParam);' -Name a -Pas)::SendMessage(-1, 0x0112, 0xF170, 2)
 }
