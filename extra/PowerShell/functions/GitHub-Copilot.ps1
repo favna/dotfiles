@@ -1,36 +1,70 @@
-Function copilot_check-response {
-    if ( $Args[0] -eq $true ) {
-        $FIXED_CMD = Get-Content $TMPFILE
-        Remove-Item $TMPFILE -ErrorAction SilentlyContinue
-        Invoke-Expression $FIXED_CMD
+function Invoke-CopilotWhatTheShell {
+    $TMPFILE = New-TemporaryFile;
+    try {
+        github-copilot-cli what-the-shell $args --shellout $TMPFILE
+        if ($LASTEXITCODE -eq 0) {
+            if (Test-Path $TMPFILE) {
+                $FIXED_CMD = Get-Content -Raw $TMPFILE;
+                Invoke-Expression $FIXED_CMD;
+            }
+            else {
+                Write-Host 'Apologies! Extracting command failed';
+            }
+        }
+        else {
+            Write-Error 'Apologies! Copilot failed to generate a command';
+        }
     }
-    else {
-        Write-Host 'User cancelled the command.'
-        Remove-Item $TMPFILE -ErrorAction SilentlyContinue
+    finally {
+        Remove-Item $TMPFILE;
     }
 }
 
-Function copilot_what-the-shell {
-    $TMPFILE = New-TemporaryFile
-    trap { Remove-Item $TMPFILE -ErrorAction SilentlyContinue }
-    github-copilot-cli what-the-shell "$args in pwsh" --shellout $TMPFILE
-    copilot_check-response $?
+function Invoke-CopilotGitAssist {
+    $TMPFILE = New-TemporaryFile;
+    try {
+        github-copilot-cli git-assist $args --shellout $TMPFILE
+        if ($LASTEXITCODE -eq 0) {
+            if (Test-Path $TMPFILE) {
+                $FIXED_CMD = Get-Content -Raw $TMPFILE;
+                Invoke-Expression $FIXED_CMD;
+            }
+            else {
+                Write-Host 'Apologies! Extracting command failed';
+            }
+        }
+        else {
+            Write-Error 'Apologies! Copilot failed to generate a command';
+        }
+    }
+    finally {
+        Remove-Item $TMPFILE;
+    }
 }
 
-Function copilot_git-assist {
-    $TMPFILE = New-TemporaryFile
-    trap { Remove-Item $TMPFILE -ErrorAction SilentlyContinue }
-    github-copilot-cli git-assist "$args" --shellout $TMPFILE
-    copilot_check-response $?
+function Invoke-CopilotGitHubAssist {
+    $TMPFILE = New-TemporaryFile;
+    try {
+        github-copilot-cli gh-assist $args --shellout $TMPFILE
+        if ($LASTEXITCODE -eq 0) {
+            if (Test-Path $TMPFILE) {
+                $FIXED_CMD = Get-Content -Raw $TMPFILE;
+                Invoke-Expression $FIXED_CMD;
+            }
+            else {
+                Write-Host 'Apologies! Extracting command failed';
+            }
+        }
+        else {
+            Write-Error 'Apologies! Copilot failed to generate a command';
+        }
+    }
+    finally {
+        Remove-Item $TMPFILE;
+    }
 }
 
-Function copilot_gh-assist {
-    $TMPFILE = New-TemporaryFile
-    trap { Remove-Item $TMPFILE -ErrorAction SilentlyContinue }
-    github-copilot-cli gh-assist "$args" --shellout $TMPFILE
-    copilot_check-response $?
-}
-
-Set-Alias ?? copilot_what-the-shell
-Set-Alias git? copilot_git-assist
-Set-Alias gh? copilot_gh-assist
+Set-Alias '??' 'Invoke-CopilotWhatTheShell';
+Set-Alias 'gh?' 'Invoke-CopilotGitHubAssist';
+Set-Alias 'wts' 'Invoke-CopilotWhatTheShell';
+Set-Alias 'git?' 'Invoke-CopilotGitAssist';
