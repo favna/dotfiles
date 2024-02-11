@@ -11,8 +11,7 @@ Set-Alias -Name y -Value yarn
 Set-Alias -Name rmf -Value Remove-Files-Recursively-Forced
 Set-Alias -Name rimraf -Value Remove-Files-Recursively-Forced
 Set-Alias -Name lsd -Value Launch-Switch-Dvr
-Set-Alias -Name winfetch -Value pwshfetch-test-1
-Set-Alias -Name neofetch -Value pwshfetch-test-1
+Set-Alias -Name neofetch -Value winfetch
 Set-Alias -Name yarn2 -Value Start-Yarn3
 Set-Alias -Name yarn3 -Value Start-Yarn3
 Set-Alias -Name sharing -Value Set-Sharing-Resolution
