@@ -1,7 +1,7 @@
 [core]
   autocrlf = false
   excludesfile = "~/.gitignore_global"
-  editor = vim
+  editor = code -rw
   pager = delta
 [user]
   name = Jeroen Claassens
@@ -116,8 +116,8 @@
   tool = vscode
 [difftool "vscode"]
   cmd = code -wr --diff $LOCAL $REMOTE
-# [interactive]
-#   diffFilter = delta --color-only --features=interactive
+[interactive]
+  diffFilter = delta --color-only --features=interactive
 [rebase]
   autoStash = true
 [push]
@@ -128,3 +128,9 @@
   hyperlinks-file-link-format = "vscode://file/{path}:{line}"
 [delta "interactive"]
   keep-plus-minus-markers = false
+[gpg]
+	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+[fetch]
+	prune = true

@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# CodeWhisperer pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh"
+
 GREEN=$(tput setaf 2)
 NORMAL=$(tput sgr0)
 RED=$(tput setaf 1)
@@ -18,7 +21,7 @@ alias ghvp="gh pr view -w"
 alias ghv="gh repo view -w"
 alias rmf="rm -rf"
 alias dc="docker compose"
-alias ruby="cloudflared tunnel run ruby"
+alias spinel="cloudflared tunnel run spinel"
 alias gpp="git push"
 alias gpl="git pull"
 alias y="yarn"
@@ -32,7 +35,9 @@ alias rlyd="regenlockfile && yarn dedupe"
 alias gpshtyp="git push && git push --tags && yarn npm publish"
 alias python="python3"
 alias air="$AIR_DEV_PATH/tools/aio.sh"
+alias aio="$AIR_DEV_PATH/tools/aio.sh"
 alias lag="ls -al | grep"
+alias bunny="bun i"
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"
@@ -121,8 +126,15 @@ yarnclean() {
 }
 
 regenlockfile() {
-    rmf ./node_modules ./yarn.lock
-    yarn install
+    currentNodeLinker=$(yarn config get nodeLinker)
+
+    if [ "${currentNodeLinker}" = "pnp" ]; then
+      currentCacheDirectory=$(yarn config get cacheFolder)
+      rmf ${currentCacheDirectory} ./yarn.lock
+      yarn install
+    else
+      rmf ./node_modules ./yarn.lock
+    fi
 }
 
 yarnallrepos() {
@@ -166,11 +178,11 @@ npmallrepos() {
 }
 
 getcoverage() {
-    http-server ./coverage/lcov-report/ -gbso -p 8081 -c-1
+    open ./coverage/lcov-report/index.html
 }
 
 getdocs() {
-    http-server ./docs/ -gbso -p 8081 -c-1
+    open ./docs/index.html
 }
 
 openredis() {
@@ -201,13 +213,37 @@ compressvideo() {
     ffmpeg -i $1 -b:v 12800k -c:a copy -y ./out.mp4
 }
 
+update-volta-cli-tools() {
+  volta install \
+    @arethetypeswrong/cli \
+    @favware/cliff-jumper \
+    @favware/npm-deprecate \
+    @favware/rollup-type-bundler \
+    @githubnext/github-copilot-cli \
+    @sapphire/cli \
+    commitizen \
+    eslint \
+    fkill-cli \
+    gen-esm-wrapper \
+    http-server \
+    pnpm \
+    prettier \
+    rollup \
+    serve \
+    ts-node \
+    tsup \
+    turbo \
+    typescript \
+    vitest
+}
+
 copilot_what-the-shell () {
   TMPFILE=$(mktemp);
   trap 'rm -f $TMPFILE' EXIT;
-  if /Users/favna/.volta/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli what-the-shell "$@" --shellout $TMPFILE; then
+  if ${VOLTA_HOME}/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli what-the-shell "$@" --shellout $TMPFILE; then
     if [ -e "$TMPFILE" ]; then
       FIXED_CMD=$(cat $TMPFILE);
-
+      print -s "$FIXED_CMD";
       eval "$FIXED_CMD"
     else
       echo "Apologies! Extracting command failed"
@@ -220,10 +256,10 @@ copilot_what-the-shell () {
 copilot_git-assist () {
   TMPFILE=$(mktemp);
   trap 'rm -f $TMPFILE' EXIT;
-  if /Users/favna/.volta/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli git-assist "$@" --shellout $TMPFILE; then
+  if ${VOLTA_HOME}/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli git-assist "$@" --shellout $TMPFILE; then
     if [ -e "$TMPFILE" ]; then
       FIXED_CMD=$(cat $TMPFILE);
-
+      print -s "$FIXED_CMD";
       eval "$FIXED_CMD"
     else
       echo "Apologies! Extracting command failed"
@@ -236,10 +272,10 @@ copilot_git-assist () {
 copilot_gh-assist () {
   TMPFILE=$(mktemp);
   trap 'rm -f $TMPFILE' EXIT;
-  if /Users/favna/.volta/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli gh-assist "$@" --shellout $TMPFILE; then
+  if ${VOLTA_HOME}/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli gh-assist "$@" --shellout $TMPFILE; then
     if [ -e "$TMPFILE" ]; then
       FIXED_CMD=$(cat $TMPFILE);
-
+      print -s "$FIXED_CMD";
       eval "$FIXED_CMD"
     else
       echo "Apologies! Extracting command failed"
@@ -253,3 +289,8 @@ alias '??'='copilot_what-the-shell';
 alias 'gh?'='copilot_gh-assist';
 alias 'wts'='copilot_what-the-shell';
 alias 'git?'='copilot_git-assist';
+
+source "$HOME/.rover/env"
+
+# CodeWhisperer post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh"
