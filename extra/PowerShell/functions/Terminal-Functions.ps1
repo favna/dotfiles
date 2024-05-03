@@ -35,42 +35,6 @@ Function la {
 	Get-ChildItem -Attributes ReadOnly, Hidden, System, Directory, Archive, Device, Normal, Temporary, SparseFile, ReparsePoint, Compressed, Offline, NotContentIndexed, Encrypted, IntegrityStream, NoScrubData @Args | Format-Wide -Column 3
 }
 
-Function Set-SapphireDev-Location {
-	[CmdletBinding()]
-	Param (
-		[Parameter(Mandatory = $False, ValueFromRemainingArguments = $False)]
-		$Repo
-	)
-
-	Process {
-		Set-Location -Path ( -join ('F:\dev\sapphiredev\', $Repo))
-	}
-}
-
-Function Set-SkyraProject-Location {
-	[CmdletBinding()]
-	Param (
-		[Parameter(Mandatory = $False, ValueFromRemainingArguments = $False)]
-		$Repo
-	)
-
-	Process {
-		Set-Location -Path ( -join ('F:\dev\skyraproject\', $Repo))
-	}
-}
-
-Function Set-Favware-Location {
-	[CmdletBinding()]
-	Param (
-		[Parameter(Mandatory = $False, ValueFromRemainingArguments = $False)]
-		$Repo
-	)
-
-	Process {
-		Set-Location -Path ( -join ('F:\dev\favware\', $Repo))
-	}
-}
-
 Function x {
 	exit;
 }
@@ -103,7 +67,7 @@ Function sd {
 }
 
 Function Docker-Compose-Alias {
-	docker compose @Args
+	docker compose $args
 }
 
 Function Spinel-Tunnel {
