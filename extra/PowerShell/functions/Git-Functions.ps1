@@ -63,7 +63,7 @@ Function gswm {
 }
 
 function Push-WhatTheCommit() {
-	commitwhatthecommit $args
+	Commit-WhatTheCommit $args
 	git push
 }
 
