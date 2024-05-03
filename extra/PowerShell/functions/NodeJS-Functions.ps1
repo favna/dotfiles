@@ -45,7 +45,7 @@ Function yarnclean {
 	$YarnVersion = $(yarn --version)
 
 	if ($YarnVersion.StartsWith('1')) {
-		Remove-Item ((yarn cache dir) + '\*') -Force -Recurse -ErrorAction ignore;
+		Remove-Item ($(yarn cache dir) + '\*') -Force -Recurse -ErrorAction ignore;
 	}
 	else {
 		yarn cache clean --mirror @Args
@@ -55,21 +55,17 @@ Function yarnclean {
 }
 
 Function regenlockfile {
-	Remove-Item -Recurse -Force .\node_modules -ErrorAction ignore;
-	Remove-Item -Force .\yarn.lock -ErrorAction ignore;
-	yarn install
-}
+	$currentNodeLinker = $(yarn config get nodeLinker)
 
-Function Start-Yarn3 {
-	[CmdletBinding()]
-	Param(
-		[Parameter(Mandatory = $False, ValueFromRemainingArguments = $True)]
-		$Arguments
-	)
-
-	Process {
-		node $Env:USERPROFILE\.bin\yarn-3.1.0.cjs $Arguments
+	if ($currentNodeLinker.Equals('pnp')) {
+		$currentCacheDirectory = $(yarn config get cacheFolder)
+		Remove-Item -Recurse -Force $currentCacheDirectory, '.\yarn.lock'
 	}
+	else {
+		Remove-Item -Recurse -Force '.\node_modules', '.\yarn.lock'
+	}
+
+	yarn install
 }
 
 Function Yarn-All-Repos {
