@@ -35,7 +35,7 @@ Register-ArgumentCompleter -Native -CommandName 'volta' -ScriptBlock {
             [CompletionResult]::new('which', 'which', [CompletionResultType]::ParameterValue, 'Locates the actual binary that will be called by Volta')
             [CompletionResult]::new('use', 'use', [CompletionResultType]::ParameterValue, 'use')
             [CompletionResult]::new('setup', 'setup', [CompletionResultType]::ParameterValue, 'Enables Volta for the current user / shell')
-            [CompletionResult]::new('run', 'run', [CompletionResultType]::ParameterValue, 'Run a command with custom Node, npm, and/or Yarn versions')
+            [CompletionResult]::new('run', 'run', [CompletionResultType]::ParameterValue, 'Run a command with custom Node, npm, pnpm, and/or Yarn versions')
             [CompletionResult]::new('help', 'help', [CompletionResultType]::ParameterValue, 'Prints this message or the help of the given subcommand(s)')
             break
         }
@@ -132,9 +132,11 @@ Register-ArgumentCompleter -Native -CommandName 'volta' -ScriptBlock {
         'volta;run' {
             [CompletionResult]::new('--node', 'node', [CompletionResultType]::ParameterName, 'Set the custom Node version')
             [CompletionResult]::new('--npm', 'npm', [CompletionResultType]::ParameterName, 'Set the custom npm version')
+            [CompletionResult]::new('--pnpm', 'pnpm', [CompletionResultType]::ParameterName, 'Set the custon pnpm version')
             [CompletionResult]::new('--yarn', 'yarn', [CompletionResultType]::ParameterName, 'Set the custom Yarn version')
             [CompletionResult]::new('--env', 'env', [CompletionResultType]::ParameterName, 'Set an environment variable (can be used multiple times)')
             [CompletionResult]::new('--bundled-npm', 'bundled-npm', [CompletionResultType]::ParameterName, 'Forces npm to be the version bundled with Node')
+            [CompletionResult]::new('--no-pnpm', 'no-pnpm', [CompletionResultType]::ParameterName, 'Disables pnpm')
             [CompletionResult]::new('--no-yarn', 'no-yarn', [CompletionResultType]::ParameterName, 'Disables Yarn')
             [CompletionResult]::new('-h', 'h', [CompletionResultType]::ParameterName, 'Prints help information')
             [CompletionResult]::new('--help', 'help', [CompletionResultType]::ParameterName, 'Prints help information')
