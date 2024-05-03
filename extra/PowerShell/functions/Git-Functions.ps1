@@ -1,69 +1,21 @@
-Function Get-Current-Git-Branch() {
-	git rev-parse --abbrev-ref HEAD
-}
-
-function Get-Main-Git-Branch() {
-	git show-ref -q --verify refs/heads/main
-
-	if ($LastExitCode -eq 0) {
-		Write-Output 'main'
-	}
-	else {
-		Write-Output 'master'
-	}
-}
-
-Function gst {
-	git status @Args
-}
-
-Function gba {
-	git branch -a 
-}
-
 Function gbl {
 	git branch -l
 }
 
-Function gpp {
-	git push @Args
-}
-
-Function gpl {
-	git pull @Args
-}
-
 Function gfa {
-	git fetch --all --prune @Args
+	git fetch --all --prune --jobs=10 @Args
 }
 
-Function gco {
-	git checkout @Args
+function gcom {
+	$MainBranch = Get-Git-MainBranch
+
+	git checkout origin/$MainBranch $args
 }
 
-Function gcom {
-	git checkout origin/$(Get-Main-Git-Branch) @Args
-}
+Function gluc {
+	$CurrentBranch = Get-Git-CurrentBranch
 
-Function gcbb {
-	git checkout -b @Args
-}
-
-Function gpf {
-	git push --force
-}
-
-Function gpsup {
-	$currentBranch = Get-Current-Git-Branch
-	git push --set-upstream origin $currentBranch
-}
-
-Function grset {
-	git remote set-url @Args
-}
-
-Function gpum {
-	git pull upstream $(Get-Main-Git-Branch)
+	git pull upstream $CurrentBranch
 }
 
 Function grau {
@@ -74,87 +26,104 @@ Function grad {
 	git remote add downstream @Args
 }
 
-Function gcl {
-	git clone @Args
-}
-
 Function grlm {
-	$currentBranch = Get-Current-Git-Branch
-	git rev-list --count $(Get-Main-Git-Branch)..$currentBranch
+	$CurrentBranch = Get-Git-CurrentBranch
+	$MainBranch = Get-Git-MainBranch
+
+	git rev-list --count $MainBranch..$CurrentBranch
 }
 
 Function grlmo {
-	$currentBranch = Get-Current-Git-Branch
-	git rev-list --count origin/$(Get-Main-Git-Branch)..$currentBranch
+	$CurrentBranch = Get-Git-CurrentBranch
+	$MainBranch = Get-Git-MainBranch
+
+	git rev-list --count origin/$MainBranch..$CurrentBranch
 }
 
-Function grba {
-	git rebase --abort
-}
+function grbom {
+	$MainBranch = Get-Git-MainBranch
 
-Function grbm {
-	git rebase $(Get-Main-Git-Branch)
-}
-
-Function grbom {
-	git rebase origin/$(Get-Main-Git-Branch)
-}
-
-Function grbc {
-	git rebase --continue
-}
-
-Function gom {
-	git merge origin/$(Get-Main-Git-Branch)
-}
-
-Function gy {
-	git yolo
-}
-
-Function gcy {
-	git ciyolo
+	git rebase origin/$MainBranch $args
 }
 
 Function gsd {
-	git squashdiff
+	$MainBranch = Get-Git-MainBranch
+
+	git rebase -i HEAD~$(git rev-list --count origin/$MainBranch..$(git rev-parse --abbrev-ref HEAD))
 }
 
-Function ga {
-	git add @Args
-}
-
-Function gsw {
-	git switch @Args
-}
-
-Function gswc {
-	git switch -c @Args
+function gswc {
+	git switch --create $args
 }
 
 Function gswm {
-	git switch $(Get-Main-Git-Branch)
+	$MainBranch = Get-Git-MainBranch
+
+	git switch $MainBranch
 }
 
-Function gaa {
-	git add --all @Args
+function Push-WhatTheCommit() {
+	commitwhatthecommit $args
+	git push
 }
 
-Function gcmsg {
-	git commit --message @Args
+function Commit-WhatTheCommit {
+	Param (
+		[string]$fixup = ''
+	)
+
+	Process {
+		$commitMessage = Invoke-RestMethod -Uri 'https://whatthecommit.com/index.txt' | ForEach-Object { $_.ToLower() }
+
+		if ($fixup.Equals('fixup')) {
+			git commit --no-verify --all --fixup "chore: $commitMessage"
+		}
+		else {
+			git commit --no-verify --all --message "chore: $commitMessage"
+		}
+	}
 }
 
-Function bdr {
-	git br-delete-regex
+function gbdaf() {
+	$MainBranch = Get-Git-MainBranch
+	$MergedBranchs = $(git branch --merged | Select-String "^(\*|\s*($MainBranch|develop|dev)\s*$)" -NotMatch).Line
+	$MergedBranchs | ForEach-Object {
+		if ([string]::IsNullOrEmpty($_)) {
+			return
+		}
+		git branch --delete --force $_.Trim()
+	}
 }
 
-Function bdu {
-	git br-delete-useless-force
+function Delete-BranchRegex {
+	param(
+		[string]$pattern
+	)
+
+	git branch --no-color --merged | Where-Object { $_ -match $pattern } | ForEach-Object {
+		git branch --delete $_.Trim() > $null 2>&1
+	}
 }
 
-Function bduf {
-	git br-delete-useless-force
+function Delete-BranchRegexForce {
+	param(
+		[string]$pattern
+	)
+
+	git branch --no-color --merged | Where-Object { $_ -match $pattern } | ForEach-Object {
+		git branch --delete --force $_.Trim() > $null 2>&1
+	}
 }
+
+Function Refresh-Tags {
+	git fetch --prune origin "+refs/tags/*:refs/tags/*" && git fetch -t
+}
+
+Set-Alias -Name gcy -Value Commit-WhatTheCommit
+Set-Alias -Name gy -Value Push-WhatTheCommit
+Set-Alias -Name gbdr -Value Delete-BranchRegex
+Set-Alias -Name gbdrf -Value Delete-BranchRegexForce
+Set-Alias -Name gpt -Value Refresh-Tags
 
 Function Get-All-Repos {
 	Get-ChildItem -Directory |
