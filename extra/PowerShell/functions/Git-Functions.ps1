@@ -164,7 +164,7 @@ Function Clear-Branches {
 
 	Write-Host 'Pruning local branches' -ForegroundColor Magenta
 
-	foreach ($branch in $(git br-delete-useless-force)) {
+	foreach ($branch in $(gbdaf)) {
 		Write-Host $branch -ForegroundColor Red
 	}
 
