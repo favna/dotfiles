@@ -119,6 +119,10 @@ Function Refresh-Tags {
 	git fetch --prune origin "+refs/tags/*:refs/tags/*" && git fetch -t
 }
 
+Function gitalias {
+	Get-Git-Aliases | findstr -i @args
+}
+
 Set-Alias -Name gcy -Value Commit-WhatTheCommit
 Set-Alias -Name gy -Value Push-WhatTheCommit
 Set-Alias -Name gbdr -Value Delete-BranchRegex
