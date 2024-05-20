@@ -59,10 +59,10 @@ Function regenlockfile {
 
 	if ($currentNodeLinker.Equals('pnp')) {
 		$currentCacheDirectory = $(yarn config get cacheFolder)
-		Remove-Item -Recurse -Force $currentCacheDirectory, '.\yarn.lock'
+		Remove-Files-Recursively-Forced $currentCacheDirectory '.\yarn.lock'
 	}
 	else {
-		Remove-Item -Recurse -Force '.\node_modules', '.\yarn.lock'
+		Remove-Files-Recursively-Forced '.\node_modules' '.\yarn.lock'
 	}
 
 	yarn install
