@@ -95,6 +95,10 @@ function gbdaf() {
 	}
 }
 
+function gbd() {
+	git branch --delete --force $args
+}
+
 function Delete-BranchRegex {
 	param(
 		[string]$pattern
