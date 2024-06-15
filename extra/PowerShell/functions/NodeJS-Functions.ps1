@@ -1,38 +1,3 @@
-Function yf {
-	$YarnVersion = $(yarn --version)
-
-	if ($YarnVersion.StartsWith('1')) {
-		yarn --frozen-lockfile @Args
-	}
-	else {
-		yarn --immutable @Args
-	}
-}
-
-Function yb {
-	yarn build @Args
-}
-
-Function yc {
-	yarn clean @Args
-}
-
-Function yt {
-	yarn test @Args
-}
-
-Function ybu {
-	yarn bump @Args
-}
-
-Function ycu {
-	yarn check-update @Args
-}
-
-Function yui {
-	yarn upgrade-interactive @Args
-}
-
 Function rlyd {
 	regenlockfile && yarn dedupe @Args
 }
