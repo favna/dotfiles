@@ -1,70 +1,98 @@
-function Invoke-CopilotWhatTheShell {
-    $TMPFILE = New-TemporaryFile;
-    try {
-        github-copilot-cli what-the-shell $args --shellout $TMPFILE
-        if ($LASTEXITCODE -eq 0) {
-            if (Test-Path $TMPFILE) {
-                $FIXED_CMD = Get-Content -Raw $TMPFILE;
-                Invoke-Expression $FIXED_CMD;
-            }
-            else {
-                Write-Host 'Apologies! Extracting command failed';
-            }
+function ghcs {
+    # Debug support provided by common PowerShell function parameters, which is natively aliased as -d or -db
+    # https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_commonparameters?view=powershell-7.4#-debug
+    param(
+        [Parameter()]
+        [string]$Hostname,
+
+        [ValidateSet('gh', 'git', 'shell')]
+        [Alias('t')]
+        [String]$Target = 'shell',
+
+        [Parameter(Position = 0, ValueFromRemainingArguments)]
+        [string]$Prompt
+    )
+    begin {
+        # Create temporary file to store potential command user wants to execute when exiting
+        $executeCommandFile = New-TemporaryFile
+
+        # Store original value of GH_* environment variable
+        $envGhDebug = $Env:GH_DEBUG
+        $envGhHost = $Env:GH_HOST
+    }
+    process {
+        if ($PSBoundParameters['Debug']) {
+            $Env:GH_DEBUG = 'api'
         }
-        else {
-            Write-Error 'Apologies! Copilot failed to generate a command';
+
+        $Env:GH_HOST = $Hostname
+
+        gh copilot suggest -t $Target -s "$executeCommandFile" $Prompt
+    }
+    end {
+        # Execute command contained within temporary file if it is not empty
+        if ($executeCommandFile.Length -gt 0) {
+            # Extract command to execute from temporary file
+            $executeCommand = (Get-Content -Path $executeCommandFile -Raw).Trim()
+
+            # Insert command into PowerShell up/down arrow key history
+            [Microsoft.PowerShell.PSConsoleReadLine]::AddToHistory($executeCommand)
+
+            # Insert command into PowerShell history
+            $now = Get-Date
+            $executeCommandHistoryItem = [PSCustomObject]@{
+                CommandLine        = $executeCommand
+                ExecutionStatus    = [Management.Automation.Runspaces.PipelineState]::NotStarted
+                StartExecutionTime = $now
+                EndExecutionTime   = $now.AddSeconds(1)
+            }
+            Add-History -InputObject $executeCommandHistoryItem
+
+            # Execute command
+            Write-Host "`n"
+            Invoke-Expression $executeCommand
         }
     }
-    finally {
-        Remove-Item $TMPFILE;
+    clean {
+        # Clean up temporary file used to store potential command user wants to execute when exiting
+        Remove-Item -Path $executeCommandFile
+
+        # Restore GH_* environment variables to their original value
+        $Env:GH_DEBUG = $envGhDebug
     }
 }
 
-function Invoke-CopilotGitAssist {
-    $TMPFILE = New-TemporaryFile;
-    try {
-        github-copilot-cli git-assist $args --shellout $TMPFILE
-        if ($LASTEXITCODE -eq 0) {
-            if (Test-Path $TMPFILE) {
-                $FIXED_CMD = Get-Content -Raw $TMPFILE;
-                Invoke-Expression $FIXED_CMD;
-            }
-            else {
-                Write-Host 'Apologies! Extracting command failed';
-            }
-        }
-        else {
-            Write-Error 'Apologies! Copilot failed to generate a command';
-        }
+function ghce {
+    # Debug support provided by common PowerShell function parameters, which is natively aliased as -d or -db
+    # https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_commonparameters?view=powershell-7.4#-debug
+    param(
+        [Parameter()]
+        [string]$Hostname,
+
+        [Parameter(Position = 0, ValueFromRemainingArguments)]
+        [string[]]$Prompt
+    )
+    begin {
+        # Store original value of GH_* environment variables
+        $envGhDebug = $Env:GH_DEBUG
+        $envGhHost = $Env:GH_HOST
     }
-    finally {
-        Remove-Item $TMPFILE;
+    process {
+        if ($PSBoundParameters['Debug']) {
+            $Env:GH_DEBUG = 'api'
+        }
+
+        $Env:GH_HOST = $Hostname
+
+        gh copilot explain $Prompt
+    }
+    clean {
+        # Restore GH_* environment variables to their original value
+        $Env:GH_DEBUG = $envGhDebug
+        $Env:GH_HOST = $envGhHost
     }
 }
 
-function Invoke-CopilotGitHubAssist {
-    $TMPFILE = New-TemporaryFile;
-    try {
-        github-copilot-cli gh-assist $args --shellout $TMPFILE
-        if ($LASTEXITCODE -eq 0) {
-            if (Test-Path $TMPFILE) {
-                $FIXED_CMD = Get-Content -Raw $TMPFILE;
-                Invoke-Expression $FIXED_CMD;
-            }
-            else {
-                Write-Host 'Apologies! Extracting command failed';
-            }
-        }
-        else {
-            Write-Error 'Apologies! Copilot failed to generate a command';
-        }
-    }
-    finally {
-        Remove-Item $TMPFILE;
-    }
-}
-
-Set-Alias '??' 'Invoke-CopilotWhatTheShell';
-Set-Alias 'gh?' 'Invoke-CopilotGitHubAssist';
-Set-Alias 'wts' 'Invoke-CopilotWhatTheShell';
-Set-Alias 'git?' 'Invoke-CopilotGitAssist';
+Set-Alias '??' 'ghcs';
+Set-Alias 'gh?' 'ghce';
+Set-Alias 'wts' 'ghcs';
