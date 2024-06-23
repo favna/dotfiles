@@ -86,8 +86,8 @@ function Commit-WhatTheCommit {
 
 function gbdaf() {
 	$MainBranch = Get-Git-MainBranch
-	$MergedBranchs = $(git branch --merged | Select-String "^(\*|\s*($MainBranch|develop|dev)\s*$)" -NotMatch).Line
-	$MergedBranchs | ForEach-Object {
+	$NotMainBranches = $(git branch | Select-String "^(\*|\s*($MainBranch|develop|dev)\s*$)" -NotMatch).Line
+	$NotMainBranches | ForEach-Object {
 		if ([string]::IsNullOrEmpty($_)) {
 			return
 		}
