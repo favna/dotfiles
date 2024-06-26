@@ -1,8 +1,5 @@
 #!/usr/bin/env zsh
 
-# CodeWhisperer pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.pre.zsh"
-
 GREEN=$(tput setaf 2)
 NORMAL=$(tput sgr0)
 RED=$(tput setaf 1)
@@ -219,78 +216,14 @@ update-volta-cli-tools() {
     @favware/cliff-jumper \
     @favware/npm-deprecate \
     @favware/rollup-type-bundler \
-    @githubnext/github-copilot-cli \
     @sapphire/cli \
-    commitizen \
     eslint \
     fkill-cli \
-    gen-esm-wrapper \
-    http-server \
     pnpm \
     prettier \
     rollup \
-    serve \
-    ts-node \
     tsup \
     turbo \
     typescript \
     vitest
 }
-
-copilot_what-the-shell () {
-  TMPFILE=$(mktemp);
-  trap 'rm -f $TMPFILE' EXIT;
-  if ${VOLTA_HOME}/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli what-the-shell "$@" --shellout $TMPFILE; then
-    if [ -e "$TMPFILE" ]; then
-      FIXED_CMD=$(cat $TMPFILE);
-      print -s "$FIXED_CMD";
-      eval "$FIXED_CMD"
-    else
-      echo "Apologies! Extracting command failed"
-    fi
-  else
-    return 1
-  fi
-};
-
-copilot_git-assist () {
-  TMPFILE=$(mktemp);
-  trap 'rm -f $TMPFILE' EXIT;
-  if ${VOLTA_HOME}/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli git-assist "$@" --shellout $TMPFILE; then
-    if [ -e "$TMPFILE" ]; then
-      FIXED_CMD=$(cat $TMPFILE);
-      print -s "$FIXED_CMD";
-      eval "$FIXED_CMD"
-    else
-      echo "Apologies! Extracting command failed"
-    fi
-  else
-    return 1
-  fi
-};
-
-copilot_gh-assist () {
-  TMPFILE=$(mktemp);
-  trap 'rm -f $TMPFILE' EXIT;
-  if ${VOLTA_HOME}/tools/image/packages/@githubnext/github-copilot-cli/bin/github-copilot-cli gh-assist "$@" --shellout $TMPFILE; then
-    if [ -e "$TMPFILE" ]; then
-      FIXED_CMD=$(cat $TMPFILE);
-      print -s "$FIXED_CMD";
-      eval "$FIXED_CMD"
-    else
-      echo "Apologies! Extracting command failed"
-    fi
-  else
-    return 1
-  fi
-};
-
-alias '??'='copilot_what-the-shell';
-alias 'gh?'='copilot_gh-assist';
-alias 'wts'='copilot_what-the-shell';
-alias 'git?'='copilot_git-assist';
-
-source "$HOME/.rover/env"
-
-# CodeWhisperer post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zprofile.post.zsh"
