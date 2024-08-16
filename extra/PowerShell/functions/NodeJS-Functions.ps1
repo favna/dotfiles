@@ -44,7 +44,7 @@ Function Yarn-All-Repos {
 		Push-Location $dirname\..\
 
 		Write-Host "Running yarn install for ${dirname}" -ForegroundColor Green
-		yf
+		yii
 
 		Write-Host '-------------' -ForegroundColor Gray
 		Pop-Location
