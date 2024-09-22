@@ -1,11 +1,12 @@
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.pre.zsh"
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.pre.zsh"
 export SSH_AUTH_SOCK=~/.1password/agent.sock
 export TERM="xterm-256color"
 export VOLTA_HOME="$HOME/.volta"
+export SDKMAN_DIR="$HOME/.sdkman"
 export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PATH:$HOME/.local/bin:$VOLTA_HOME/bin:$HOME/.rover/bin:$JAVA_HOME/bin:$PYENV_ROOT/bin"
+export PATH="$PATH:$HOME/.local/bin:$VOLTA_HOME/bin:$HOME/.rover/bin:$PYENV_ROOT/bin"
 export ZSH="$HOME/.oh-my-zsh"
-
 export PROMPT_EOL_MARK=''
 export GITHUB_TOKEN="nope"
 
@@ -18,11 +19,22 @@ STREAMABLEUSER="username"
 STREAMABLEPASSWORD="password"
 
 plugins=(
+  1password
+  colorize
+  docker
+  docker-compose
+  fzf
+  gh
+  gradle
   poetry
-  zsh-git-enhanced
+  volta
+  yarn
   zsh-autosuggestions
+  zsh-git-enhanced
   zsh-syntax-highlighting
 )
+
+zstyle ':omz:plugins:yarn' berry yes
 
 source $ZSH/oh-my-zsh.sh
 source $HOME/.zprofile
@@ -47,6 +59,13 @@ if [ ! "$TERM_PROGRAM" = "vscode" ] && [ ! "$WARP_IS_LOCAL_SHELL_SESSION" = "1" 
   eval "$(starship init zsh)"
 fi
 
-# CodeWhisperer post block. Keep at the bottom of this file.
-[[ -f "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/codewhisperer/shell/zshrc.post.zsh"
+# Init GitHub Copilot
+if command gh copilot >> /dev/null; then
+  eval "$(gh copilot alias -- zsh)"
+fi
 
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zshrc.post.zsh"

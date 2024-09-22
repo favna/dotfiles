@@ -6,6 +6,7 @@
 [user]
   name = Jeroen Claassens
   email = support@favware.tech
+	signingKey = /Users/favna/.ssh/public-keys/github.pub
 [alias]
   # List all available aliases
   alias = !git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
@@ -65,16 +66,6 @@
   yeet = !gh pr create -f
   # Quick access to commit allow empty
   cie = commit --allow-empty
-  # Commit with whatthecommit
-  ciyolo = !git commit -nam \"chore: $(curl -sL https://whatthecommit.com/index.txt | tr '[:upper:]' '[:lower:]')\"
-  # Commit with whatthecommit then push
-  yolo = !git ciyolo && git push
-  # Remove branches based on a pattern
-  br-delete-regex = "!f(){ git branch -D $(git branch | grep -E $1); }; f"
-  # Delete all local branches but main and the current one, only if they are fully merged with main.
-  br-delete-useless = !git branch | grep -v "main" | grep -v ^* | xargs -r git branch -d
-  # Delete all local branches but main and the current one.
-  br-delete-useless-force = !git branch | grep -v "main" | grep -v ^* | xargs -r git branch -D
   # Logs given amount of commit messages, defaults to 1
   logline = "!f(){ git log -n ${1:-1} --oneline; }; f"
   ll = logline
@@ -132,5 +123,8 @@
 	format = ssh
 [gpg "ssh"]
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
+	allowedSignersFile = /Users/favna/.ssh/allowed_signers
 [fetch]
 	prune = true
+[submodule]
+	recurse = true

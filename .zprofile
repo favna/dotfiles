@@ -1,5 +1,8 @@
 #!/usr/bin/env zsh
 
+# Amazon Q pre block. Keep at the top of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zprofile.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zprofile.pre.zsh"
+
 GREEN=$(tput setaf 2)
 NORMAL=$(tput sgr0)
 RED=$(tput setaf 1)
@@ -7,13 +10,6 @@ RED=$(tput setaf 1)
 alias x="exit"
 alias dirsize="du -hcs ."
 alias ps="pwsh -NoLogo"
-alias gy="git yolo"
-alias gcy="git ciyolo"
-alias gsd="git squashdiff"
-alias bdr="git br-delete-regex"
-alias bdu="git br-delete-useless-force"
-alias bduf="git br-delete-useless-force"
-alias ghpc="gh pr checkout"
 alias ghvp="gh pr view -w"
 alias ghv="gh repo view -w"
 alias rmf="rm -rf"
@@ -21,20 +17,24 @@ alias dc="docker compose"
 alias spinel="cloudflared tunnel run spinel"
 alias gpp="git push"
 alias gpl="git pull"
-alias y="yarn"
-alias yb="yarn build"
-alias yc="yarn clean"
-alias yt="yarn test"
-alias ybu="yarn bump"
-alias ycu="yarn check-update"
-alias yui="yarn upgrade-interactive"
 alias rlyd="regenlockfile && yarn dedupe"
 alias gpshtyp="git push && git push --tags && yarn npm publish"
 alias python="python3"
-alias air="$AIR_DEV_PATH/tools/aio.sh"
 alias aio="$AIR_DEV_PATH/tools/aio.sh"
-alias lag="ls -al | grep"
 alias bunny="bun i"
+alias neofetch="fastfetch"
+
+lag() {
+  if [[ $# -eq 0 ]]; then
+    printred "You should provide a grep filter (and optionally path) to search for."
+  elif [[ $# -eq 1 ]]; then
+    ls -al . | grep $@
+  else
+    lsPath=$1
+    shift 1
+    ls -al ${lsPath} | grep $@
+  fi
+}
 
 printgreen() {
   printf "${GREEN}$@${NORMAL}\n"
@@ -89,24 +89,13 @@ getallrepos() {
 clear-branches() {
   printgreen "Fetching and pruning remotes"
 
-  git fetch --all --prune
+  gfa
 
   printgreen "Pruning local branches"
 
-  git br-delete-useless-force
+  gbdaf
 
   printgrey "-------------"
-}
-
-yf() {
-    yarnversion=$(yarn --version)
-
-    if [[ $yarnversion =~ "^1" ]];
-    then
-        yarn --frozen-lockfile $@
-    else
-        yarn --immutable $@
-    fi
 }
 
 yarnclean() {
@@ -145,7 +134,7 @@ yarnallrepos() {
 
     printgreen "Running yarn install for $dir"
 
-    yf
+    yii
 
     printgrey "-------------"
 
@@ -216,14 +205,29 @@ update-volta-cli-tools() {
     @favware/cliff-jumper \
     @favware/npm-deprecate \
     @favware/rollup-type-bundler \
+    @favware/discord-application-emojis-manager \
+    @githubnext/github-copilot-cli \
     @sapphire/cli \
+    commitizen \
     eslint \
     fkill-cli \
+    gen-esm-wrapper \
+    http-server \
     pnpm \
     prettier \
     rollup \
+    serve \
+    ts-node \
     tsup \
     turbo \
     typescript \
     vitest
 }
+
+source $HOME/.rover/env
+
+# Added by OrbStack: command-line tools and integration
+source ~/.orbstack/shell/init.zsh 2>/dev/null || :
+
+# Amazon Q post block. Keep at the bottom of this file.
+[[ -f "${HOME}/Library/Application Support/amazon-q/shell/zprofile.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/amazon-q/shell/zprofile.post.zsh"
