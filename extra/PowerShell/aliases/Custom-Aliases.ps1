@@ -1,5 +1,6 @@
 Set-Alias -Name notepad -Value notepad++
-Set-Alias -Name dc -Value Docker-Compose-Alias
+Set-Alias -Name dc -Value Podman-Compose-Alias
+Set-Alias -Name pc -Value Podman-Compose-Alias
 Set-Alias -Name nu -Value Start-Npm-Upgrade
 Set-Alias -Name y -Value yarn
 Set-Alias -Name rmf -Value Remove-Files-Recursively-Forced

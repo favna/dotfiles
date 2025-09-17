@@ -1,47 +1,47 @@
-Function .. {
+function .. {
 	Set-Location ../
 }
 
-Function ... {
+function ... {
 	Set-Location ../../
 }
 
-Function .... {
+function .... {
 	Set-Location ../../../
 }
 
-Function ..... {
+function ..... {
 	Set-Location ../../../../
 }
 
-Function Remove-Files-Recursively-Forced {
-	Param(
+function Remove-Files-Recursively-Forced {
+	param(
 		[Parameter(ValueFromRemainingArguments = $True)]
 		[String[]]$Paths
 	)
-	Process {
-		ForEach ($path in $Paths) {
+	process {
+		foreach ($path in $Paths) {
 			Remove-Item -Recurse -Force -Path $path -ErrorAction Ignore
 		}
 	}
 }
 
 
-Function Update-Env {
+function Update-Env {
 	$env:Path = [System.Environment]::GetEnvironmentVariable('Path', 'Machine') + ';' + [System.Environment]::GetEnvironmentVariable('Path', 'User')
 }
 
-Function la {
+function la {
 	Get-ChildItem -Attributes ReadOnly, Hidden, System, Directory, Archive, Device, Normal, Temporary, SparseFile, ReparsePoint, Compressed, Offline, NotContentIndexed, Encrypted, IntegrityStream, NoScrubData @Args | Format-Wide -Column 3
 }
 
-Function x {
+function x {
 	exit;
 }
 
-Function sd {
+function sd {
 	[CmdletBinding()]
-	Param (
+	param (
 		[Parameter(Mandatory = $True)]
 		[int]
 		$timeout,
@@ -51,7 +51,7 @@ Function sd {
 		$unit
 	)
 	
-	Process {
+	process {
 		if ($null -eq $unit) {
 			$unit = 'm'
 		}
@@ -66,15 +66,15 @@ Function sd {
 	}
 }
 
-Function Docker-Compose-Alias {
-	docker compose $args
+function Podman-Compose-Alias {
+	podman compose $args
 }
 
-Function Spinel-Tunnel {
+function Spinel-Tunnel {
 	cloudflared tunnel run spinel
 }
 
-Function Sleep-Monitors {
+function Sleep-Monitors {
 	$Code = @'
 using System;
 using System.Runtime.InteropServices;
